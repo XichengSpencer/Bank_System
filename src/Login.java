@@ -30,7 +30,7 @@ public class Login extends  JFrame implements ActionListener {
         signUpButton.setFocusable(false);
         logInButton.addActionListener(this);
         signUpButton.addActionListener(this);
-
+        resetButton.addActionListener(this);
         frame.add(panel1);
         frame.pack();
         frame.setLocationRelativeTo(null);
@@ -66,6 +66,16 @@ public class Login extends  JFrame implements ActionListener {
             else {
                 messageLabel.setForeground(Color.red);
                 messageLabel.setText("username not found");
+            }
+        }
+        if(e.getSource() == signUpButton){
+            String userID = userText.getText();
+            String password = String.valueOf(userPassword.getPassword());
+            if(logininfo.containsKey(userID)) {
+                messageLabel.setForeground(Color.black);
+                messageLabel.setText("username already exist");
+            }else {
+                logininfo.put(userID,password);
             }
         }
     }
