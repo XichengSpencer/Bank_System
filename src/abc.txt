@@ -1,2 +1,1 @@
-123,456
-564,999
+iPhone,13proiPhone,13pro

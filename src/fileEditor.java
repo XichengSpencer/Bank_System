@@ -1,5 +1,4 @@
-import java.io.BufferedReader;
-import java.io.FileReader;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,8 +34,22 @@ public class fileEditor {
         }
         return list;
     }
+    //read and find exist
+    //then write
+    public static void writeFile(String filename,String[] tokens){
+        try (PrintWriter writer = new PrintWriter(new FileOutputStream(new File(System.getProperty("user.dir")+filename),true))) {
 
-    public static void writeFile(){
+            String steam = String.join(",",tokens);
+            System.out.println(steam);
+            writer.write(steam);
+            writer.write("\n");
+            writer.close();
+
+        } catch (FileNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
 
     }
+
 }
+
