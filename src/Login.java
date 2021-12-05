@@ -55,7 +55,7 @@ public class Login extends  JFrame implements ActionListener {
                     messageLabel.setForeground(Color.green);
                     messageLabel.setText("Login successful");
                     frame.dispose();
-                    WelcomePage welcomePage = new WelcomePage(userID);
+                    UserPage userPage = new UserPage(userID);
                 }
                 else {
                     messageLabel.setForeground(Color.red);

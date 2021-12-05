@@ -2,8 +2,11 @@ import java.util.List;
 
 public class Main {
     public static void main (String[] args){
+        //a hard-coded account lib
         AccountData accountData= new AccountData();
+
         new Login(accountData.getLoginInfo());
+
         //test for read
         //List<String[]> list = fileEditor.fileRead("/src/abc.txt");
         //test for write
