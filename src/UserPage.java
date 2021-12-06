@@ -22,7 +22,7 @@ public class UserPage extends JFrame{
         stockButton = new JButton("Stock");
         logOutButton = new JButton("Log Out");
 
-        userLabel.setBounds(200,0,55,30);
+        userLabel.setBounds(200,10,180,30);
         userLabel.setFont(new Font(null,Font.ITALIC,35));
         accountSummaryButton.setBounds(20,70,150,25);
         openAccountButton.setBounds(20,110,150,25);

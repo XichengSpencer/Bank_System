@@ -15,8 +15,6 @@ public class fileEditor {
             String line = "";
             fileReader = new BufferedReader(new FileReader(System.getProperty("user.dir")+fileName));
 
-            //Read the CSV file header to skip it
-
             while ((line = fileReader.readLine()) != null) {
                 //Get all tokens available in line
                 String[] tokens = line.split(",");
@@ -26,7 +24,6 @@ public class fileEditor {
                 }
             }
 
-            //Print the new student list
         }
         catch (Exception e) {
             System.out.println("An error occurred.");

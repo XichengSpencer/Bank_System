@@ -16,11 +16,11 @@ public class Login extends  JFrame implements ActionListener {
     private JLabel password;
     private JFrame frame;
     private JFrame Login;
-    HashMap<String,String> logininfo = new HashMap<String,String>();
+    AccountData logininfo;
 
-    public Login(HashMap<String,String> loginInfoOriginal){
+    public Login(AccountData accounts){
 
-        logininfo = loginInfoOriginal;
+        logininfo = accounts;
         frame = new JFrame("Login Page");
         frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
         frame.setPreferredSize(new Dimension(400,300));
@@ -50,12 +50,17 @@ public class Login extends  JFrame implements ActionListener {
             String userID = userText.getText();
             String password = String.valueOf(userPassword.getPassword());
 
-            if(logininfo.containsKey(userID)) {
-                if(logininfo.get(userID).equals(password)) {
+            if(logininfo.getLoginInfo().containsKey(userID)) {
+                if(logininfo.getPassW(userID).equals(password)) {
                     messageLabel.setForeground(Color.green);
                     messageLabel.setText("Login successful");
                     frame.dispose();
-                    UserPage userPage = new UserPage(userID);
+                    if(userID.equals("Admin")){
+                        //TODO admin page
+                    }
+                    else{
+                        UserPage userPage = new UserPage(userID);
+                    }
                 }
                 else {
                     messageLabel.setForeground(Color.red);
@@ -71,11 +76,11 @@ public class Login extends  JFrame implements ActionListener {
         if(e.getSource() == signUpButton){
             String userID = userText.getText();
             String password = String.valueOf(userPassword.getPassword());
-            if(logininfo.containsKey(userID)) {
+            if(logininfo.getLoginInfo().containsKey(userID)) {
                 messageLabel.setForeground(Color.black);
                 messageLabel.setText("username already exist");
             }else {
-                logininfo.put(userID,password);
+                logininfo.set(userID,password);
             }
         }
     }
