@@ -1,7 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 
-public class UserPage extends JFrame{
+public class UserPage extends JFrame implements MauePage{
 
 
     private JPanel panel1;

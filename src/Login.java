@@ -57,6 +57,7 @@ public class Login extends  JFrame implements ActionListener {
                     frame.dispose();
                     if(userID.equals("Admin")){
                         //TODO admin page
+                        AdminPage adminPage= new AdminPage(userID);
                     }
                     else{
                         UserPage userPage = new UserPage(userID);
