@@ -1,7 +1,8 @@
-<center>Fancy Bank
-=================
+Fancy Bank
+====
 ***
-##Team Members
+Team Members
+----
 |  Name   | Mail  |
 |  ----  | ----  |
 | Lei Huang  | leih1219@bu.edu |
