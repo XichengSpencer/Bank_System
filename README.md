@@ -1,4 +1,5 @@
-#<center>Fancy Bank
+<center>Fancy Bank
+=================
 ***
 ##Team Members
 |  Name   | Mail  |
