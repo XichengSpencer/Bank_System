@@ -7,7 +7,6 @@ public class AccountData {
     HashMap<String,String[]> accountinfo = new HashMap<String,String[]>();
 
     AccountData(){
-
         File accountFile = new File(System.getProperty("user.dir")+"/src/abc.txt");
         if(accountFile.length()==0) {
             String number = UUID.randomUUID().toString();
@@ -27,7 +26,7 @@ public class AccountData {
         String number = UUID.randomUUID().toString();
         accountinfo.put(id,new String[]{password,number});
         fileEditor.writeFile("/src/abc.txt",new String[]{id,password,number});
-        File folder = new File(System.getProperty("user.dir")+"/src/Data"+number);
+        File folder = new File(System.getProperty("user.dir")+"/src/System Data/"+number);
         if (!folder.exists()){
             folder.mkdirs();
         }
