@@ -12,10 +12,12 @@ public class UserPage extends JFrame implements MauePage, ActionListener {
     private JButton openAccountButton;
     private JButton logOutButton;
     private JButton stockButton;
+    private String uid;
 
     private  JFrame frame;
 
     UserPage(String userID){
+        uid = userID;
         JLabel userLabel = new JLabel(userID);
 
         accountSummaryButton = new JButton("Account Summary");
@@ -63,10 +65,12 @@ public class UserPage extends JFrame implements MauePage, ActionListener {
     public void actionPerformed(ActionEvent e) {
         if(e.getSource()==accountSummaryButton) {
             //TODO change Interest
+
             frame.dispose();
         }
         if(e.getSource()==openAccountButton) {
             //TODO open Account
+            AccountMenu menu = new AccountMenu(uid);
             frame.dispose();
 
         }
