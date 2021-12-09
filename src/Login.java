@@ -56,7 +56,7 @@ public class Login extends  JFrame implements ActionListener {
                     messageLabel.setText("Login successful");
                     frame.dispose();
                     if(userID.equals("Admin")){
-                        //TODO admin page
+
                         AdminPage adminPage= new AdminPage(userID);
                     }
                     else{

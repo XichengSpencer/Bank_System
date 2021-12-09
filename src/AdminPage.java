@@ -3,65 +3,55 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class UserPage extends JFrame implements MauePage, ActionListener {
-
-
-    private JPanel panel1;
-    private JButton accountSummaryButton;
-    private JButton loanButton;
+public class AdminPage implements MauePage , ActionListener {
+    private JButton changeInterestButton;
+    private JButton dailyReportButton;
     private JButton openAccountButton;
     private JButton logOutButton;
     private JButton stockButton;
+    private JFrame frame;
 
-    private  JFrame frame;
+    public AdminPage(String userID) {
+        JLabel adminLabel = new JLabel(userID);
 
-    UserPage(String userID){
-        JLabel userLabel = new JLabel(userID);
-
-        accountSummaryButton = new JButton("Account Summary");
+        changeInterestButton = new JButton("Change Interest");
         openAccountButton = new JButton("Open Account");
-        loanButton = new JButton("Loan");
+        dailyReportButton = new JButton("Daily Report");
         stockButton = new JButton("Stock");
         logOutButton = new JButton("Log Out");
 
-        userLabel.setBounds(200,10,180,30);
-        userLabel.setFont(new Font(null,Font.ITALIC,35));
-        accountSummaryButton.setBounds(20,70,150,25);
+        adminLabel.setBounds(200,10,180,30);
+        adminLabel.setFont(new Font(null,Font.ITALIC,35));
+        changeInterestButton.setBounds(20,70,150,25);
         openAccountButton.setBounds(20,110,150,25);
-        loanButton.setBounds(20,150,150,25);
+        dailyReportButton.setBounds(20,150,150,25);
         stockButton.setBounds(20,190,150,25);
         logOutButton.setBounds(20,230,150,25);
 
-        frame = new JFrame("UserPage");
-        frame.add(userLabel);
-        frame.add(accountSummaryButton);
-        frame.add(openAccountButton);
-        frame.add(loanButton);
-        frame.add(stockButton);
-        frame.add(logOutButton);
-
-        accountSummaryButton.addActionListener(this);
+        changeInterestButton.addActionListener(this);
         openAccountButton.addActionListener(this);
-        loanButton.addActionListener(this);
+        dailyReportButton.addActionListener(this);
         stockButton.addActionListener(this);
         logOutButton.addActionListener(this);
 
-        //panel1.add(userLable);
-
-
-        //panel1.add(userLabel);
+        frame = new JFrame("Admin Page");
+        frame.add(adminLabel);
+        frame.add(changeInterestButton);
+        frame.add(openAccountButton);
+        frame.add(dailyReportButton);
+        frame.add(stockButton);
+        frame.add(logOutButton);
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(420, 420);
+        frame.setSize(400, 420);
         frame.setLayout(null);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
 
-
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource()==accountSummaryButton) {
+        if(e.getSource()==changeInterestButton) {
             //TODO change Interest
             frame.dispose();
         }
@@ -70,13 +60,10 @@ public class UserPage extends JFrame implements MauePage, ActionListener {
             frame.dispose();
 
         }
-        if(e.getSource()==loanButton) {
-            //TODO  loan
+        if(e.getSource()==dailyReportButton) {
             frame.dispose();
         }
         if(e.getSource()==stockButton) {
-            //TODO stock
-
             frame.dispose();
         }
         if(e.getSource()==logOutButton) {
@@ -84,5 +71,6 @@ public class UserPage extends JFrame implements MauePage, ActionListener {
             frame.dispose();
             new Login(new AccountData());
         }
+
     }
 }
