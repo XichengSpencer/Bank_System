@@ -1,18 +1,36 @@
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
-import java.util.UUID;
 
-public abstract class Account {
+public class Account {
     private String accountType;
     private String id;
     private Customer customer;
     private HashMap<String, Double> totalAmount =new HashMap<>();
+    private static volatile int Guid = 100;
 
     public Account(String accountType, Customer customer) {
         this.accountType = accountType;
-        UUID uuid = UUID.randomUUID();
-        this.id = uuid.toString();
+        this.id = getGuid();
         this.customer = customer;
         initializeAmount();
+    }
+
+    public static String getGuid()
+    {
+        Account.Guid += 1;
+
+        long now = System.currentTimeMillis();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy");
+        String time = dateFormat.format(now);
+        String info = now + "";
+        int ran = 0;
+        if (Account.Guid > 999)
+        {
+            Account.Guid = 100;
+        }
+        ran = Account.Guid;
+
+        return time + info.substring(2, info.length()) + ran;
     }
 
     public Account(String accountType, Customer customer, String currency, double amount) {

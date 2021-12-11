@@ -2,7 +2,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.HashMap;
 
 public class Login extends  JFrame implements ActionListener {
     private JTextField userText;
@@ -16,9 +15,9 @@ public class Login extends  JFrame implements ActionListener {
     private JLabel password;
     private JFrame frame;
     private JFrame Login;
-    AccountData logininfo;
+    LoginData logininfo;
 
-    public Login(AccountData accounts){
+    public Login(LoginData accounts){
 
         logininfo = accounts;
         frame = new JFrame("Login Page");
@@ -47,20 +46,20 @@ public class Login extends  JFrame implements ActionListener {
 
         if(e.getSource()==logInButton) {
 
-            String userID = userText.getText();
+            String userName = userText.getText();
             String password = String.valueOf(userPassword.getPassword());
 
-            if(logininfo.getLoginInfo().containsKey(userID)) {
-                if(logininfo.getPassW(userID).equals(password)) {
+            if(logininfo.getLoginInfo().containsKey(userName)) {
+                if(logininfo.getPassW(userName).equals(password)) {
                     messageLabel.setForeground(Color.green);
                     messageLabel.setText("Login successful");
                     frame.dispose();
-                    if(userID.equals("Admin")){
+                    if(userName.equals("Admin")){
 
-                        AdminPage adminPage= new AdminPage(userID);
+                        AdminPage adminPage= new AdminPage(userName);
                     }
                     else{
-                        UserPage userPage = new UserPage(userID);
+                        UserPage userPage = new UserPage(userName);
                     }
                 }
                 else {
@@ -75,13 +74,15 @@ public class Login extends  JFrame implements ActionListener {
             }
         }
         if(e.getSource() == signUpButton){
-            String userID = userText.getText();
+            String userName = userText.getText();
             String password = String.valueOf(userPassword.getPassword());
-            if(logininfo.getLoginInfo().containsKey(userID)) {
+            if(logininfo.getLoginInfo().containsKey(userName)) {
                 messageLabel.setForeground(Color.black);
                 messageLabel.setText("username already exist");
-            }else {
-                logininfo.set(userID,password);
+            }else { // Sign up for the customer
+                Customer newCus = new Customer(userName, password);
+//                logininfo.set(userID,password);
+                logininfo.set(newCus);
             }
         }
     }

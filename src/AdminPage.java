@@ -3,10 +3,10 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class AdminPage implements MauePage , ActionListener {
+public class AdminPage implements ActionListener {
     private JButton changeInterestButton;
     private JButton dailyReportButton;
-    private JButton openAccountButton;
+//    private JButton openAccountButton;
     private JButton logOutButton;
     private JButton stockButton;
     private JFrame frame;
@@ -15,21 +15,21 @@ public class AdminPage implements MauePage , ActionListener {
         JLabel adminLabel = new JLabel(userID);
 
         changeInterestButton = new JButton("Change Interest");
-        openAccountButton = new JButton("Open Account");
+//        openAccountButton = new JButton("Open Account");
         dailyReportButton = new JButton("Daily Report");
         stockButton = new JButton("Stock");
         logOutButton = new JButton("Log Out");
 
         adminLabel.setBounds(200,10,180,30);
         adminLabel.setFont(new Font(null,Font.ITALIC,35));
-        changeInterestButton.setBounds(20,70,150,25);
-        openAccountButton.setBounds(20,110,150,25);
+        changeInterestButton.setBounds(20,110,150,25);
+//        openAccountButton.setBounds(20,110,150,25);
         dailyReportButton.setBounds(20,150,150,25);
         stockButton.setBounds(20,190,150,25);
         logOutButton.setBounds(20,230,150,25);
 
         changeInterestButton.addActionListener(this);
-        openAccountButton.addActionListener(this);
+//        openAccountButton.addActionListener(this);
         dailyReportButton.addActionListener(this);
         stockButton.addActionListener(this);
         logOutButton.addActionListener(this);
@@ -37,7 +37,7 @@ public class AdminPage implements MauePage , ActionListener {
         frame = new JFrame("Admin Page");
         frame.add(adminLabel);
         frame.add(changeInterestButton);
-        frame.add(openAccountButton);
+//        frame.add(openAccountButton);
         frame.add(dailyReportButton);
         frame.add(stockButton);
         frame.add(logOutButton);
@@ -55,11 +55,11 @@ public class AdminPage implements MauePage , ActionListener {
             //TODO change Interest
             frame.dispose();
         }
-        if(e.getSource()==openAccountButton) {
-            //TODO open Account
-            frame.dispose();
-
-        }
+//        if(e.getSource()==openAccountButton) {
+//            //TODO open Account
+//            frame.dispose();
+//
+//        }
         if(e.getSource()==dailyReportButton) {
             frame.dispose();
         }
@@ -69,7 +69,7 @@ public class AdminPage implements MauePage , ActionListener {
         if(e.getSource()==logOutButton) {
             //TODO
             frame.dispose();
-            new Login(new AccountData());
+            new Login(new LoginData());
         }
 
     }

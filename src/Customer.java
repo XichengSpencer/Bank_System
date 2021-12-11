@@ -3,6 +3,10 @@ import java.util.HashMap;
 public class Customer extends User {
     private HashMap<String, Account> accountList = new HashMap<>();
 
+    public Customer(String name, String password, String id) {
+        super(name, password, id);
+    }
+
     public Customer(String name, String password) {
         super(name, password);
     }

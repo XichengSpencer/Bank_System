@@ -3,7 +3,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class UserPage extends JFrame implements MauePage, ActionListener {
+public class UserPage extends JFrame implements ActionListener {
 
 
     private JPanel panel1;
@@ -12,13 +12,13 @@ public class UserPage extends JFrame implements MauePage, ActionListener {
     private JButton openAccountButton;
     private JButton logOutButton;
     private JButton stockButton;
-    private String uid;
+    private String username;
 
     private  JFrame frame;
 
-    UserPage(String userID){
-        uid = userID;
-        JLabel userLabel = new JLabel(userID);
+    UserPage(String userName){
+        username = userName;
+        JLabel userLabel = new JLabel(userName);
 
         accountSummaryButton = new JButton("Account Summary");
         openAccountButton = new JButton("Open Account");
@@ -70,8 +70,10 @@ public class UserPage extends JFrame implements MauePage, ActionListener {
         }
         if(e.getSource()==openAccountButton) {
             //TODO open Account
-            AccountMenu menu = new AccountMenu(uid);
+
             frame.dispose();
+            AccountMenu menu = new AccountMenu(username);
+
 
         }
         if(e.getSource()==loanButton) {
@@ -86,7 +88,7 @@ public class UserPage extends JFrame implements MauePage, ActionListener {
         if(e.getSource()==logOutButton) {
             //TODO
             frame.dispose();
-            new Login(new AccountData());
+            new Login(new LoginData());
         }
     }
 }

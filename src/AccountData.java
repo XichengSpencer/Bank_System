@@ -4,48 +4,57 @@ import java.util.List;
 import java.util.UUID;
 
 public class AccountData {
-    HashMap<String,String[]> accountinfo = new HashMap<String,String[]>();
+    private static AccountData accountData = new AccountData();
 
-    AccountData(){
-        File accountFile = new File(System.getProperty("user.dir")+"/src/abc.txt");
-        if(accountFile.length()==0) {
-            String number = UUID.randomUUID().toString();
-            accountinfo.put("Admin", new String[]{"00000",number});
-            fileEditor.writeFile("/src/abc.txt", new String[]{"Admin", "00000", number});
-        }else {
-            getFromLocal();
+    public static AccountData getInstance(){
+        return accountData;
+    }
+
+//    public Account getAccount(String accountNumber) {
+//        String accountPath = System.getProperty("user.dir")+"/src/System Data/"+customer.getId();
+//    }
+
+    public HashMap<String, Account> getAccountList(Customer customer) {
+        HashMap<String,Account> list = new HashMap<>();
+        String userName = customer.getName();
+        String passWord = customer.getPassword();
+
+        String accountPath = System.getProperty("user.dir")+"/src/System Data/"+customer.getId();
+        File accountFolder = new File(accountPath);
+        if (!accountFolder.exists()) {
+            accountFolder.mkdirs();
+            return null;
+        } else {
+            File savingAccount = new File(accountPath + "saving.txt");
+            if (savingAccount.length() != 0) {
+                List<String[]> accountList = fileEditor.fileRead("/src/System Data/"+customer.getId()+"saving.txt");
+                for(String[] token :accountList){
+                    String accountNumber = token[0];
+                    Account account = new Account(customer);
+                    list.put("saving", account);
+                }
+            }
+            File checkingAccount = new File(accountPath + "checking.txt");
+            if (checkingAccount.length() != 0) {
+                List<String[]> accountList = fileEditor.fileRead("/src/System Data/"+customer.getId()+"checking.txt");
+                for(String[] token :accountList){
+                    String accountNumber = token[0];
+                    Account account = new Account(customer);
+                    list.put("Checking", account);
+                }
+            }
+            File stockAccount = new File(accountPath + "stock.txt");
+            if (savingAccount.length() != 0) {
+                List<String[]> accountList = fileEditor.fileRead("/src/System Data/"+customer.getId()+"stock.txt");
+                for(String[] token :accountList){
+                    String accountNumber = token[0];
+                    Account account = new Account(customer);
+                    list.put("Stock", account);
+                }
+            }
+
         }
-    }
-
-    public HashMap getLoginInfo(){
-        return accountinfo;
-    }
-
-    public void set(String id,String password){
-        //add to hashmap and append to local metadata file
-        String number = UUID.randomUUID().toString();
-        accountinfo.put(id,new String[]{password,number});
-        fileEditor.writeFile("/src/abc.txt",new String[]{id,password,number});
-        File folder = new File(System.getProperty("user.dir")+"/src/System Data/"+number);
-        if (!folder.exists()){
-            folder.mkdirs();
-        }
-
-    }
-
-
-    //get data from local
-    public void getFromLocal(){
-        //read from file path
-        List<String[]> accountList = fileEditor.fileRead("/src/abc.txt");
-        for(String[] token :accountList){
-            accountinfo.put(token[0],new String[]{token[1],token[2]});
-        }
-    }
-
-
-    public String getPassW(String userID){
-        return accountinfo.get(userID)[0];
+        return list;
     }
 
 }
