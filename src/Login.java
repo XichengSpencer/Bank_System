@@ -25,8 +25,6 @@ public class Login extends  JFrame implements ActionListener {
         frame.setPreferredSize(new Dimension(400,300));
         frame.setResizable(false);
 
-        logInButton.setFocusable(false);
-        signUpButton.setFocusable(false);
         logInButton.addActionListener(this);
         signUpButton.addActionListener(this);
         resetButton.addActionListener(this);

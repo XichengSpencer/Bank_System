@@ -42,6 +42,7 @@ public class AdminPage implements ActionListener {
 
         frame = new JFrame("Admin Page");
         frame.add(adminLabel);
+        frame.add(infolabel);
         frame.add(changeInterestButton);
 //        frame.add(openAccountButton);
         frame.add(dailyReportButton);
@@ -82,14 +83,16 @@ public class AdminPage implements ActionListener {
 
     private void changePrice() {
         //change stock price
-        List<String[]> stockList = fileEditor.fileRead("/src/System Data/publicStock.txt");
+        String filename = "/src/System Data/publicStock.txt";
+        List<String[]> stockList = fileEditor.fileRead(filename);
+        fileEditor.clearFile(filename);
         //message display
         for (String[]stockinfo : stockList){
             double price = Double.valueOf(stockinfo[1]);
             price *= 0.9+0.2*Math.random();
-            stockinfo[1] = String.valueOf(price);
-            fileEditor.writeFile("/src/System Data/publicStock.txt",stockinfo);
+            stockinfo[1] = String.format("%.2f",price);
+            fileEditor.writeFile(filename,stockinfo);
         }
-        infolabel.setText("Stock Price has changed");
+        infolabel.setText(stockList.size()+" Stock Prices Have Changed");
     }
 }

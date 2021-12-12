@@ -5,7 +5,7 @@ import java.util.List;
 
 public class fileEditor {
 
-    public static List<String[]> fileRead(String fileName){
+    public static List<String[]> fileRead(String fileName) {
         BufferedReader fileReader = null;
         List<String[]> list = new ArrayList<String[]>();
         try {
@@ -13,7 +13,7 @@ public class fileEditor {
             // class with CSV file as a parameter.
 
             String line = "";
-            fileReader = new BufferedReader(new FileReader(System.getProperty("user.dir")+fileName));
+            fileReader = new BufferedReader(new FileReader(System.getProperty("user.dir") + fileName));
 
             while ((line = fileReader.readLine()) != null) {
                 //Get all tokens available in line
@@ -23,24 +23,24 @@ public class fileEditor {
                     list.add(tokens);
                 }
             }
+            fileReader.close();
 
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
         }
         return list;
     }
-    //read and find exist
-    //then write
-    public static void writeFile(String filename,String[] tokens){
-        try (PrintWriter writer = new PrintWriter(new FileOutputStream(new File(System.getProperty("user.dir")+filename),true))) {
 
-            String steam = String.join(",",tokens);
+    //Before use writeFile
+    //read and find if file exist
+    public static void writeFile(String filename, String[] tokens) {
+        try (PrintWriter writer = new PrintWriter(new FileOutputStream(new File(System.getProperty("user.dir") + filename),true))) {
+
+            String steam = String.join(",", tokens);
             System.out.println(steam);
             writer.write(steam);
             writer.write("\n");
-            writer.close();
 
         } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());
@@ -48,6 +48,20 @@ public class fileEditor {
 
     }
 
+    public static void clearFile(String filename) {
+        Boolean removed;
+        try {
+            File f = new File(System.getProperty("user.dir") + filename);
+            if (f.exists() && f.isFile()) {
+                f.delete();
+            }
+            f.createNewFile();
 
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+    }
 }
 
