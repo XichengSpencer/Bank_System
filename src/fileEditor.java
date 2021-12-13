@@ -48,6 +48,21 @@ public class fileEditor {
 
     }
 
+    public static void listWrite(String filename, List<String[]> list) {
+        File f= new File(System.getProperty("user.dir") + filename);
+        if(!f.exists()){f.mkdirs();}
+        try (PrintWriter writer = new PrintWriter(new FileOutputStream(f,true))) {
+
+            for (String [] item : list){
+                writer.write(String.join(" ", item));
+            }
+
+        } catch (FileNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
+
+    }
+
     public static void clearFile(String filename) {
         Boolean removed;
         try {

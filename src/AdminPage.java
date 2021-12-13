@@ -2,6 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 public class AdminPage implements ActionListener {
@@ -73,7 +75,9 @@ public class AdminPage implements ActionListener {
            importData();
         }
         if(e.getSource()==dailyReportButton) {
-            frame.dispose();
+            new Report ();
+            //dailyReport();
+
         }
         if(e.getSource()==stockButton) {
             changePrice(1);
@@ -90,6 +94,8 @@ public class AdminPage implements ActionListener {
 
     }
 
+
+
     private void importData() {
         fileEditor.writeFile(stockPath,new String[]{"SONY","1131.96","YEN"});
         fileEditor.writeFile(stockPath,new String[]{"NIO","374.60","RMB"});
@@ -99,7 +105,10 @@ public class AdminPage implements ActionListener {
         fileEditor.writeFile(ratePath,new String[]{"RMB","0.16"});
         fileEditor.writeFile(ratePath,new String[]{"YEN","0.0088"});
 
+        //saving interest rate
         fileEditor.writeFile(interestPath,new String[]{"0.02"});
+        //load interest rate
+        fileEditor.writeFile(interestPath,new String[]{"0.10"});
     }
 
     private void changePrice(int numType) {

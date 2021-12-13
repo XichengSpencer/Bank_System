@@ -3,7 +3,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Login extends  JFrame implements ActionListener {
+public class Login implements ActionListener {
     private JTextField userText;
     private JPanel panel1;
     private JPasswordField userPassword;
@@ -21,7 +21,7 @@ public class Login extends  JFrame implements ActionListener {
 
         logininfo = accounts;
         frame = new JFrame("Login Page");
-        frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setPreferredSize(new Dimension(400,300));
         frame.setResizable(false);
 
