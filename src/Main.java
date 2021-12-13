@@ -1,5 +1,5 @@
 public class Main {
-    public static void main (String[] args){
+    public static void main (String[] args) {
         //a hard-coded account lib
         LoginData accountData= new LoginData();
         new Login(accountData);
