@@ -48,11 +48,6 @@ public class UserPage extends JFrame implements ActionListener {
         stockButton.addActionListener(this);
         logOutButton.addActionListener(this);
 
-        //panel1.add(userLable);
-
-
-        //panel1.add(userLabel);
-
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(420, 420);
         frame.setLayout(null);

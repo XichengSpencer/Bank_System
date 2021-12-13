@@ -1,3 +1,8 @@
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class Main {
     public static void main (String[] args) {
         //a hard-coded account lib
@@ -8,5 +13,8 @@ public class Main {
         //List<String[]> list = fileEditor.fileRead("/src/abc.txt");
         //test for write
         // fileEditor.writeFile("/src/abc.txt", new String[]{"iPhone", "13pro"});
+        //test for list write
+        //fileEditor.listWrite("/src/System Data/file/","file.txt", Arrays.asList(new String[]{"a"},new String[]{"b"})) ;
+
     }
 }

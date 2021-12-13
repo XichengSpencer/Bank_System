@@ -1,4 +1,11 @@
 import java.io.*;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,19 +55,25 @@ public class fileEditor {
 
     }
 
-    public static void listWrite(String filename, List<String[]> list) {
-        File f= new File(System.getProperty("user.dir") + filename);
+    public static boolean listWrite(String folder,String filename, List<String[]> list) {
+        String path = System.getProperty("user.dir") + folder;
+        File f= new File(path);
         if(!f.exists()){f.mkdirs();}
+        //open file
+        f = new File(path+filename);
+
         try (PrintWriter writer = new PrintWriter(new FileOutputStream(f,true))) {
 
             for (String [] item : list){
                 writer.write(String.join(" ", item));
-            }
+                writer.write("\n");           }
+            return true;
+
 
         } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());
+            return false;
         }
-
     }
 
     public static void clearFile(String filename) {
@@ -77,6 +90,18 @@ public class fileEditor {
         }
 
 
+    }
+
+
+    public static boolean isValid(String dateStr) {
+        DateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+        sdf.setLenient(false);
+        try {
+            sdf.parse(dateStr);
+        } catch (ParseException  e) {
+            return false;
+        }
+        return true;
     }
 }
 
