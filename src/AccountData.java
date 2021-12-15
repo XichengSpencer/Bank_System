@@ -25,27 +25,27 @@ public class AccountData {
             accountFolder.mkdirs();
             return null;
         } else {
-            File savingAccount = new File(accountPath + "saving.txt");
+            File savingAccount = new File(accountPath + "/saving.txt");
             if (savingAccount.length() != 0) {
-                List<String[]> accountList = fileEditor.fileRead("/src/System Data/"+customer.getId()+"saving.txt");
+                List<String[]> accountList = fileEditor.fileRead("/src/System Data/"+customer.getId()+"/saving.txt");
                 for(String[] token :accountList){
                     String accountNumber = token[0];
                     Account account = new Account(customer);
                     list.put("saving", account);
                 }
             }
-            File checkingAccount = new File(accountPath + "checking.txt");
+            File checkingAccount = new File(accountPath + "/checking.txt");
             if (checkingAccount.length() != 0) {
-                List<String[]> accountList = fileEditor.fileRead("/src/System Data/"+customer.getId()+"checking.txt");
+                List<String[]> accountList = fileEditor.fileRead("/src/System Data/"+customer.getId()+"/checking.txt");
                 for(String[] token :accountList){
                     String accountNumber = token[0];
                     Account account = new Account(customer);
                     list.put("Checking", account);
                 }
             }
-            File stockAccount = new File(accountPath + "stock.txt");
+            File stockAccount = new File(accountPath + "/stock.txt");
             if (savingAccount.length() != 0) {
-                List<String[]> accountList = fileEditor.fileRead("/src/System Data/"+customer.getId()+"stock.txt");
+                List<String[]> accountList = fileEditor.fileRead("/src/System Data/"+customer.getId()+"/stock.txt");
                 for(String[] token :accountList){
                     String accountNumber = token[0];
                     Account account = new Account(customer);

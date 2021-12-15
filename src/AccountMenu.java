@@ -37,10 +37,10 @@ public class AccountMenu implements ActionListener {
 //        warningLabel.setFont(new Font(null, Font.BOLD, 20));
         depositLabel.setBounds(20, 70, 150, 25);
         depositInput.setBounds(20, 110, 150, 25);
-        savingButton.setBounds(220,70,150,25);
-        checkingButton.setBounds(220,110,150,25);
-        returnButton.setBounds(220,150,150,25);
-        logOutButton.setBounds(220,190,150,25);
+        savingButton.setBounds(180,70,200,25);
+        checkingButton.setBounds(180,110,200,25);
+        returnButton.setBounds(180,150,200,25);
+        logOutButton.setBounds(180,190,200,25);
 
         frame = new JFrame("Account Menu");
         frame.add(userLabel);
@@ -74,6 +74,7 @@ public class AccountMenu implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
+        // open a saving account
         if (savingButton.equals(e.getSource())) {
             CustomerData customerData = CustomerData.getInstance();
             Customer customer = customerData.selectCustomer(username);
@@ -92,6 +93,25 @@ public class AccountMenu implements ActionListener {
             }
             fileEditor.writeFile("/src/System Data/" + customer.getId() + "/saving.txt", new String[]{newSavAct.getId(), ""+amount});
         }
+        // open a checking account
+        if (checkingButton.equals(e.getSource())) {
+            CustomerData customerData = CustomerData.getInstance();
+            Customer customer = customerData.selectCustomer(username);
+            int amount = Integer.parseInt(depositInput.getText()) - 5;
+            Account newSavAct = new Account(customer, amount);
+            customer.addAccount("saving", newSavAct);
+            // update the file or add the file under the folder
+            String accountPath = System.getProperty("user.dir") + "/src/System Data/" + customer.getId() + "/checking.txt";
+            File accountFile = new File(accountPath);
+            if (!accountFile.exists()){
+                try {
+                    accountFile.createNewFile();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            }
+            fileEditor.writeFile("/src/System Data/" + customer.getId() + "/checking.txt", new String[]{newSavAct.getId(), ""+amount});
+        }
         if (depositInput.equals(e.getSource())) {
             int deposit =Integer.parseInt(depositInput.getText());
             if (deposit < 100) {
@@ -99,6 +119,13 @@ public class AccountMenu implements ActionListener {
             } else {
                 warningLabel.setText("");
             }
+        }
+        // go back to previous page
+        if (returnButton.equals(e.getSource())) {
+            frame.toBack();
+        }
+        if (logOutButton.equals(e.getSource())) {
+            frame.dispose();
         }
     }
 }
