@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class StockData {
     public static HashMap<String, Double> getStockInformation(){
@@ -135,5 +136,20 @@ public class StockData {
             token[1] = "" + amount;
             fileEditor.writeFile("/src/System Data/" + customer.getId() + "/security.txt", token);
         }
+    }
+
+    public static double getTotalAmountOfStocks(Customer customer){
+        HashMap<String, String[]> userlist = getHoldingShareInformation(customer);
+        HashMap<String, Double> stocklist = getStockInformation();
+
+        if (userlist == null){
+            return -1;
+        }
+
+        double totalAmount = 0;
+        for (Map.Entry<String, String[]> entry : userlist.entrySet()){
+            totalAmount += Double.valueOf(entry.getValue()[0])*stocklist.get(entry.getKey());
+        }
+        return totalAmount;
     }
 }
