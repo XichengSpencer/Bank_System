@@ -31,8 +31,8 @@ public class LoanMenu implements ActionListener {
         payButton.setBounds(30, 120, 120, 25);
 
 
-        returnButton.setBounds(20,200,80,25);
-        logOutButton.setBounds(20,230,80,25);
+        returnButton.setBounds(20,230,80,25);
+        logOutButton.setBounds(120,230,80,25);
 
         frame = new JFrame("Account Menu");
         frame.add(userLabel);
