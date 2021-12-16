@@ -13,6 +13,7 @@ public class AdminPage implements ActionListener {
     private JButton importButton;
     private JButton logOutButton;
     private JButton stockButton;
+    private JButton addStockButton;
     private JLabel infolabel;
     private JFrame frame;
     private String uid;
@@ -28,7 +29,9 @@ public class AdminPage implements ActionListener {
         importButton = new JButton("Import Data");
         dailyReportButton = new JButton("Daily Report");
         stockButton = new JButton("Stock Simulate");
+        addStockButton = new JButton("Add A New Stock");
         logOutButton = new JButton("Log Out");
+
         infolabel = new JLabel("");
 
         adminLabel.setBounds(200,10,180,30);
@@ -38,8 +41,9 @@ public class AdminPage implements ActionListener {
         changeExchangeButton.setBounds(20,150,200,25);
         stockButton.setBounds(20,190,200,25);
         dailyReportButton.setBounds(20,230,200,25);
-        logOutButton.setBounds(20,270,200,25);
-        infolabel.setBounds(20,310,200,25);
+        addStockButton.setBounds(20,270,200,25);
+        logOutButton.setBounds(20,310,200,25);
+        infolabel.setBounds(20,340,200,25);
 
 
         changeInterestButton.addActionListener(this);
@@ -47,11 +51,13 @@ public class AdminPage implements ActionListener {
         importButton.addActionListener(this);
         dailyReportButton.addActionListener(this);
         stockButton.addActionListener(this);
+        addStockButton.addActionListener(this);
         logOutButton.addActionListener(this);
 
         frame = new JFrame("Admin Page");
         frame.add(adminLabel);
         frame.add(infolabel);
+        frame.add(addStockButton);
         frame.add(changeInterestButton);
         frame.add(importButton);
         frame.add(dailyReportButton);
@@ -85,6 +91,9 @@ public class AdminPage implements ActionListener {
         if(e.getSource()==changeExchangeButton) {
             changePrice(3);
         }
+        if(e.getSource() == addStockButton){
+            new StockGenerate();
+        }
 
         if(e.getSource()==logOutButton) {
             //TODO
@@ -97,17 +106,17 @@ public class AdminPage implements ActionListener {
 
 
     private void importData() {
-        fileEditor.writeFile(stockPath,new String[]{"SONY","1131.96","YEN"});
-        fileEditor.writeFile(stockPath,new String[]{"NIO","374.60","RMB"});
+        fileEditor.writeFile(stockPath,new String[]{"SONY","1131.96","USD"});
+        fileEditor.writeFile(stockPath,new String[]{"NIO","74.60","USD"});
         fileEditor.writeFile(stockPath,new String[]{"APPL","190.73","USD"});
 
         fileEditor.writeFile(ratePath,new String[]{"USD","1"});
         fileEditor.writeFile(ratePath,new String[]{"RMB","0.16"});
-        fileEditor.writeFile(ratePath,new String[]{"YEN","0.0088"});
+        fileEditor.writeFile(ratePath,new String[]{"GBP","1.33"});
 
         //saving interest rate
         fileEditor.writeFile(interestPath,new String[]{"0.02"});
-        //load interest rate
+        //loan interest rate
         fileEditor.writeFile(interestPath,new String[]{"0.10"});
     }
 

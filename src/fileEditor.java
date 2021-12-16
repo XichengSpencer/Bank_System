@@ -7,6 +7,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -54,6 +56,32 @@ public class fileEditor {
         }
 
     }
+    //first token in line as key, rest as value
+    public static HashMap<String,String[]> toHash(String filename){
+        BufferedReader fileReader = null;
+        HashMap<String,String[]> list = new HashMap<String,String[]>();
+        try {
+            // Create an object of file reader
+            // class with CSV file as a parameter.
+
+            String line = "";
+            fileReader = new BufferedReader(new FileReader(System.getProperty("user.dir") + filename));
+
+            while ((line = fileReader.readLine()) != null) {
+                //Get all tokens available in line
+                String[] tokens = line.split(",");
+                String[] value = Arrays.copyOfRange(tokens,1,tokens.length);
+                list.put(tokens[0],value);
+            }
+            fileReader.close();
+
+        } catch (Exception e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+        return list;
+    }
+
 
     public static boolean listWrite(String folder,String filename, List<String[]> list) {
         String path = System.getProperty("user.dir") + folder;
@@ -102,6 +130,29 @@ public class fileEditor {
             return false;
         }
         return true;
+    }
+    public static void listWrite(String fullpath,List<String[]>list){
+        int last = fullpath.lastIndexOf("/");
+        if(last<fullpath.length()) {
+            String filename = fullpath.substring(last + 1);
+            String folder = fullpath.substring(0,last+1);
+            listWrite(folder,filename,list);
+        }
+    }
+    public static void writeMeta(String filename,String[] metadata ){
+        if (metadata[0].equals("clear")){
+            clearFile(filename);
+            writeFile(filename,new String[]{"0"});
+        }else {
+            List<String[]> metaList = fileRead(filename);
+            clearFile(filename);
+            metaList.add(metadata);
+            int lineCount = Integer.parseInt(metaList.get(0)[0]);
+            metaList.get(0)[0] = ++lineCount + "";
+
+            listWrite(filename, metaList);
+        }
+
     }
 }
 

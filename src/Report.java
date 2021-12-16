@@ -15,6 +15,7 @@ public class Report implements ActionListener {
     private String stockPath = "/src/System Data/publicStock.txt";
     private String interestPath = "/src/System Data/Interest.txt";
     private String ratePath =  "/src/System Data/Exchange.txt";
+    private String metaPath = "/src/System Data/metadata.txt";
 
     public Report(){
         message = new JLabel();
@@ -40,7 +41,7 @@ public class Report implements ActionListener {
         frame.add(text);
         frame.add(message);
 
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setSize(350, 200);
         frame.setLayout(null);
         frame.setLocationRelativeTo(null);
@@ -63,19 +64,106 @@ public class Report implements ActionListener {
     private void dailyReport(String date) {
 
         List<String[]> list = new ArrayList<String[]>();
-        list.add(new String[]{"Today's saving interest followed by loan interest rate:"});
+        list.add(new String[]{"Current saving interest followed by loan interest rate:"});
         list.addAll(fileEditor.fileRead(interestPath));
         list.add(new String[]{"\n"});
 
-        list.add(new String[]{"Today's exchange rate:"});
-        list.addAll(fileEditor.fileRead(ratePath));
+        list.add(new String[]{"Current exchange rate:"});
+        List<String[]> exchangelist = fileEditor.fileRead(ratePath);
+        list.addAll(exchangelist);
         list.add(new String[]{"\n"});
 
-        list.add(new String[]{"Today's stock price:"});
-        list.addAll(fileEditor.fileRead(stockPath));
 
-        //TODO
+        list.add(new String[]{"Current stock price:"});
+        List<String[]> stocklist =fileEditor.fileRead(stockPath);
+        list.addAll(stocklist);
+
+
+
         date = date.replace("/","_");
         fileEditor.listWrite("/src/System Data/Daily report/"+date+"/","report.txt",list);
+    }
+    private void readMeta(List<String[]>exchange, List<String[]>stock){
+        int saving_count = 0;
+        int checking = 0;
+        int new_account = 0;
+        int deposit_num = 0;
+        double deposit_rmb = 0;
+        double deposit_usd = 0;
+        double deposit_gnp = 0;
+        int transaction_num = 0;
+        double transaction_rmb = 0;
+        double transaction_usd = 0;
+        double transaction_gnp = 0;
+        int loan_num = 0;
+        double loan_rmb = 0;
+        double loan_usd = 0;
+        double loan_gnp = 0;
+
+        List<String[]> list = fileEditor.fileRead("/src/System Data/metadata.txt");
+        if(list.size()>=1){
+            for(int i =1;  i< list.size();i++){
+                String action = list.get(i)[0];
+                switch (action){
+                    case "createSav":
+                        saving_count++;
+                        break;
+                    case "createChk":
+                        checking++;
+                        break;
+                    case "depositRMB":
+                        deposit_num++;
+                        deposit_rmb+=Double.valueOf(list.get(i)[1]);
+                        break;
+                    case "depositUSD":
+                        deposit_num++;
+                        deposit_usd+=Double.valueOf(list.get(i)[1]);
+                        break;
+                    case "depositGNP":
+                        deposit_num++;
+                        deposit_gnp+=Double.valueOf(list.get(i)[1]);
+                        break;
+                    case "transactionUSD":
+                        transaction_num++;
+                        transaction_usd+=Double.valueOf(list.get(i)[1]);
+                        break;
+                    case "transactionRMB":
+                        transaction_num++;
+                        transaction_rmb+=Double.valueOf(list.get(i)[1]);
+                        break;
+                    case "transactionGNP":
+                        transaction_num++;
+                        transaction_gnp+=Double.valueOf(list.get(i)[1]);
+                        break;
+                    case "loanRMB":
+                        loan_num++;
+                        loan_rmb+=Double.valueOf(list.get(i)[1]);
+                        break;
+                    case "loanUSD":
+                        loan_num++;
+                        loan_rmb+=Double.valueOf(list.get(i)[1]);
+                        break;
+                    case "loanGNP":
+                        loan_num++;
+                        loan_rmb+=Double.valueOf(list.get(i)[1]);
+                        break;
+
+                }
+            }
+            list.add(new String[]{"Number of New Account Created: ",String.valueOf(saving_count)});
+            list.add(new String[]{"Saving Account Created: ",String.valueOf(saving_count)});
+            list.add(new String[]{"Checking Account Created: ",String.valueOf(checking)});
+            list.add(new String[]{"Total of RMB deposit: ",String.valueOf(deposit_rmb)});
+            list.add(new String[]{"Total of USD deposit: ",String.valueOf(deposit_usd)});
+            list.add(new String[]{"Total of GNP deposit: ",String.valueOf(deposit_gnp)});
+            list.add(new String[]{"Total of RMB transaction: ",String.valueOf(transaction_rmb)});
+            list.add(new String[]{"Total of USD transaction: ",String.valueOf(transaction_usd)});
+            list.add(new String[]{"Total of GNP transaction: ",String.valueOf(transaction_gnp)});
+            list.add(new String[]{"Total of RMB loan: ",String.valueOf(loan_rmb)});
+            list.add(new String[]{"Total of USD loan: ",String.valueOf(loan_usd)});
+            list.add(new String[]{"Total of GNP loan: ",String.valueOf(loan_gnp)});
+
+        }
+
     }
 }

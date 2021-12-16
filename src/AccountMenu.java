@@ -100,6 +100,8 @@ public class AccountMenu implements ActionListener {
             if (!accountFile.exists()) {
                 try {
                     accountFile.createNewFile();
+                    //add action to meta
+                    fileEditor.writeMeta("/src/System Data/metadata.txt",new String[]{"created","saving"});
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }
