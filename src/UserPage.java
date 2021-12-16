@@ -102,7 +102,7 @@ public class UserPage extends JFrame implements ActionListener {
         }
         if (e.getSource() == logButton) {
             frame.dispose();
-            TransactionsMenu transactionsMenu = new TransactionsMenu(username);
+            TransactionsMenu transactionsMenu = new TransactionsMenu(username, frame);
         }
         if(e.getSource()==logOutButton) {
             //TODO

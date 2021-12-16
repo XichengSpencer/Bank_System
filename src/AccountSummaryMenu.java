@@ -61,7 +61,7 @@ public class AccountSummaryMenu implements ActionListener {
         returnButton.setBounds(20,230,80,25);
         logOutButton.setBounds(120,230,80,25);
 
-        frame = new JFrame("Account Menu");
+        frame = new JFrame("Account Summary");
         frame.add(userLabel);
         frame.add(message);
         frame.add(checkingLable);
