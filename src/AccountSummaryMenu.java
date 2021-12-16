@@ -96,7 +96,7 @@ public class AccountSummaryMenu implements ActionListener {
 //        sUSD.setText("0.00");
 //        sRMB.setText("0.00");
 //        sGBP.setText("0.00");
-//        cUSD.setText("0.00");
+        securityUSD.setText("0.00");
         securityRMB.setText("0.00");
         securityGBP.setText("0.00");
         HashMap<String, Account> accountList = customer.getAccountList();
@@ -123,9 +123,10 @@ public class AccountSummaryMenu implements ActionListener {
                     }
                 }
             } else if (type.equals("security")) {
-                double amountInAccout = accountList.get(type).getTotalAmount().get("USD");
-                double stockValue;
-                securityUSD.setText("" + amountInAccout);
+                double amountInAccount = accountList.get(type).getTotalAmount().get("USD");
+                double stockValue = StockData.getTotalAmountOfStocks(customer);
+
+                securityUSD.setText("" + (amountInAccount+stockValue));
             }
         }
         frame.add(sUSD);
@@ -147,8 +148,6 @@ public class AccountSummaryMenu implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
-        // open a saving account
 
         // go back to previous page
         if (returnButton.equals(e.getSource())) {

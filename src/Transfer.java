@@ -1,7 +1,7 @@
 import java.io.IOException;
 import java.util.HashMap;
 
-public class Transfer extends Transaction{
+public class Transfer extends Transaction {
     public Transfer(Account from, Account to, double amount, String fromCurrency) {
         super(from, to, amount, fromCurrency);
     }
@@ -10,23 +10,32 @@ public class Transfer extends Transaction{
     public String execute() throws IOException {
         String msg = "";
         // too much
-        if (getAmount() > getFrom().getTotalAmount().get(getFromCurrency())){
+        if (getAmount() > getFrom().getTotalAmount().get(getFromCurrency())) {
             double amount = getFrom().getTotalAmount().get(getFrom().getAccountType());
-            msg =  "Sorry you only have" + amount;
+            msg = "Sorry you only have" + amount;
         }
         // deposit
-        else if (getTo() == null){
+        else if (getTo() == null) {
             msg = "You can't transfer to a empty account.";
-        }else{
-            // pay from checking
-            if (getFrom().getTotalAmount().get(getFromCurrency()) < getAmount() * 1.05) {
-                msg = "Not enough money to pay for the transaction fee.";
+        } else {
+            if (!getTo().getCustomer().equals(getFrom().getCustomer())) {
+                // transfer between different user, will charge fee
+                if (getFrom().getTotalAmount().get(getFromCurrency()) < getAmount() * 1.05) {
+                    msg = "Not enough money to pay for the transaction fee.";
+                } else {
+                    AccountData accountData = AccountData.getInstance();
+                    HashMap<String, Account> accounts = accountData.getAccountList(getFrom().getCustomer());
+                    // TODO transaction Data:
+                    TransactionData transactionData = TransactionData.getInstance();
+                    transactionData.doTransaction(this, true);
+                }
             } else {
+                // transfer between same user, won't charge fee
                 AccountData accountData = AccountData.getInstance();
                 HashMap<String, Account> accounts = accountData.getAccountList(getFrom().getCustomer());
                 // TODO transaction Data:
                 TransactionData transactionData = TransactionData.getInstance();
-                transactionData.doTransaction(this);
+                transactionData.doTransaction(this, false);
             }
         }
         return msg;

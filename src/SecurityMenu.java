@@ -91,7 +91,7 @@ public class SecurityMenu implements ActionListener {
         if (OpenButton.equals(e.getSource())) {
             // check greater than 1000
             int deposit =Integer.parseInt(amountInput.getText());
-            if (deposit < 100) {
+            if (deposit < 1000) {
                 warningLabel.setText("Deposit should be greater than 1000");
                 return;
             } else {
@@ -108,8 +108,6 @@ public class SecurityMenu implements ActionListener {
             if (!securityFile.exists()) {
                 try {
                     securityFile.createNewFile();
-                    //add action to meta
-//                    fileEditor.writeMeta("/src/System Data/security.txt",new String[]{"created","saving"});
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }
@@ -122,20 +120,21 @@ public class SecurityMenu implements ActionListener {
             // Do transfer
             String fromAccountType = "saving";
             // update the file or add the file under the folder
-            String accountPath = System.getProperty("user.dir") + "/src/System Data/" + customer.getId() + "/saving.txt";
-            File accountFile = new File(accountPath);
-            if (!accountFile.exists()) {
-                try {
-                    accountFile.createNewFile();
-                } catch (IOException ex) {
-                    ex.printStackTrace();
-                }
-            }
+//            String accountPath = System.getProperty("user.dir") + "/src/System Data/" + customer.getId() + "/saving.txt";
+//            File accountFile = new File(accountPath);
+//            if (!accountFile.exists()) {
+//                try {
+//                    accountFile.createNewFile();
+//                } catch (IOException ex) {
+//                    ex.printStackTrace();
+//                }
+//            }
             Account savingAccount = customer.getAccountList().get(fromAccountType);
 
             Transfer transfer = new Transfer(savingAccount, securityAccount, amount, currencySelect.getSelectedItem().toString());
             try {
                 transfer.execute();
+                TransactionData.getInstance().logTransaction("Transfer", transfer);
             } catch (IOException ex) {
                 ex.printStackTrace();
             }

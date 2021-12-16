@@ -165,7 +165,8 @@ public class DepositMenu implements ActionListener {
                 fileEditor.writeFile("/src/System Data/"+customer.getId()+"/" + toAccountType + ".txt", token);
 
             }
-//            fileEditor.writeFile("/src/System Data/" + customer.getId() + "/saving.txt", new String[]{newSavAct.getId(), ""+amount, currencySelect.getSelectedItem().toString()});
+            // log the transaction
+            TransactionData.getInstance().logTransaction("Deposit", customer.getName(), "cash", customer.getName(), toAccountType, Double.valueOf(depositInput.getText()), currencySelect.getSelectedItem().toString());
         }
 
         // go back to previous page
