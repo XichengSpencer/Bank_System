@@ -15,6 +15,13 @@ public class Account {
         initializeAmount();
     }
 
+    public Account(String accountType, Customer customer, String id) {
+        this.accountType = accountType;
+        this.id = id;
+        this.customer = customer;
+        initializeAmount();
+    }
+
     public static String getGuid()
     {
         Account.Guid += 1;
@@ -39,12 +46,20 @@ public class Account {
     }
 
     public Account(Customer customer, double amount) {
-        this("Saving", customer);
+        this("saving", customer);
+        addAmount("USD", amount);
+    }
+
+    public Account(Customer customer, double amount, String id) {
+        this("saving", customer, id);
         addAmount("USD", amount);
     }
 
     public Account(Customer customer) {
-        this("Saving", customer);
+        this("saving", customer);
+    }
+    public Account(Customer customer, String id) {
+        this("Saving", customer, id);
     }
 
     protected void initializeAmount() {

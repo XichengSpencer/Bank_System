@@ -95,12 +95,15 @@ public class AccountMenu implements ActionListener {
             // update the file or add the file under the folder
             String accountPath = System.getProperty("user.dir") + "/src/System Data/" + customer.getId() + "/saving.txt";
             File accountFile = new File(accountPath);
-            if (!accountFile.exists()){
+            if (!accountFile.exists()) {
                 try {
                     accountFile.createNewFile();
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }
+            } else {
+                warningLabel.setText("Already have one");
+                return;
             }
             fileEditor.writeFile("/src/System Data/" + customer.getId() + "/saving.txt", new String[]{newSavAct.getId(), ""+amount, currencySelect.getSelectedItem().toString()});
         }
@@ -120,6 +123,9 @@ public class AccountMenu implements ActionListener {
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }
+            } else {
+                warningLabel.setText("Already have one");
+                return;
             }
             fileEditor.writeFile("/src/System Data/" + customer.getId() + "/checking.txt", new String[]{newSavAct.getId(), ""+amount, currencySelect.getSelectedItem().toString()});
         }

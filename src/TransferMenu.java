@@ -4,7 +4,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 
 public class TransferMenu implements ActionListener {
 
@@ -87,12 +89,9 @@ public class TransferMenu implements ActionListener {
         CustomerData customerData = CustomerData.getInstance();
         Customer customer = customerData.selectCustomer(userName);
         // get the account list of the customer
-        AccountData accountData = AccountData.getInstance();
-        HashMap<String, Account> accountList =  accountData.getAccountList(customer);
-//        String[] accounts = new String[accountList.size()];
-//        for (int i = 0; i < accountList.size(); i++) {
-//            accounts = (String[]) accountList.values().toArray();
-//        }
+//        AccountData accountData = AccountData.getInstance();
+//        HashMap<String, Account> accountList =  accountData.getAccountList(customer);
+        HashMap<String, Account> accountList = customer.getAccountList();
         for (Account account : accountList.values()) {
             fromAccountInput.addItem(account.getId());
         }
@@ -114,6 +113,53 @@ public class TransferMenu implements ActionListener {
     public void actionPerformed(ActionEvent e) {
 
         // transfer
+        if (transferButton.equals(e.getSource())) {
+            CustomerData customerData = CustomerData.getInstance();
+            Customer fromCustomer = customerData.selectCustomer(username);
+            String fromAccountNumber = fromAccountInput.getSelectedItem().toString();
+            String toAccountNumber = accountNumberInput.getText();
+
+            String fromAccountType = "";
+            String toAccountType = "";
+            HashMap<String, Account> accountList = fromCustomer.getAccountList();
+            for (String type : accountList.keySet()) {
+                if (accountList.get(type).getId().equals(fromAccountNumber)) { // find the account
+                    fromAccountType = type;
+                    break;
+                }
+            }
+
+            ArrayList<Customer> customers = customerData.getAllCustomers();
+            Customer toCustomer = null;
+            boolean isFund = false;
+            for (Customer customer1 : customers) {
+                HashMap<String, Account> accountList1 = customer1.getAccountList();
+                for (String type : accountList1.keySet()) {
+                    if (accountList1.get(type).getId().equals(toAccountNumber)) { // find the account
+                        toCustomer = customerData.selectCustomer(customer1.getName());
+                        toAccountType = type;
+                        isFund = true;
+                        break;
+                    }
+                }
+                if (isFund) {
+                    break;
+                }
+            }
+
+            AccountData accountData = AccountData.getInstance();
+            Account from = accountData.getAccount(fromAccountType, fromCustomer, fromAccountNumber);
+            Account to = accountData.getAccount(toAccountType, toCustomer, toAccountNumber);
+            double amount = Double.valueOf(amountInput.getText());
+            String fromCurrency = currencyInput.getText();
+
+            Transfer transfer = new Transfer(from, to, amount, fromCurrency);
+            try {
+                transfer.execute();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
 
 
         // go back to previous page
