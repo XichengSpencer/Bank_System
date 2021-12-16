@@ -21,10 +21,12 @@ public class AccountSummaryMenu implements ActionListener {
     private JButton returnButton;
     private String username;
 
-    private  JFrame frame;
+    private JFrame frame;
+    private JFrame previous;
 
-    public AccountSummaryMenu(String userName){
+    public AccountSummaryMenu(String userName, JFrame previous){
         username = userName;
+        this.previous = previous;
         JLabel userLabel = new JLabel(userName);
         JLabel message = new JLabel("The summary of you accounts");
         JLabel savingLabel = new JLabel("Saving Account:");
@@ -135,7 +137,8 @@ public class AccountSummaryMenu implements ActionListener {
 
         // go back to previous page
         if (returnButton.equals(e.getSource())) {
-            frame.toBack();
+            frame.dispose();
+            previous.setVisible(true);
         }
         if (logOutButton.equals(e.getSource())) {
             frame.dispose();

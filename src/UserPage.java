@@ -74,20 +74,21 @@ public class UserPage extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource()==accountSummaryButton) {
-            frame.dispose();
-            AccountSummaryMenu accountSummaryMenu = new AccountSummaryMenu(username);
+//            frame.dispose();
+            frame.setVisible(false);
+            AccountSummaryMenu accountSummaryMenu = new AccountSummaryMenu(username, frame);
         }
         if(e.getSource()==openAccountButton) {
-            frame.dispose();
-            AccountMenu accountMenu = new AccountMenu(username);
+            frame.setVisible(false);
+            AccountMenu accountMenu = new AccountMenu(username, frame);
         }
         if (e.getSource() == transferButton) {
             frame.dispose();
-            TransferMenu transferMenu = new TransferMenu(username);
+            TransferMenu transferMenu = new TransferMenu(username, frame);
         }
         if (e.getSource() == depositButton) {
             frame.dispose();
-            DepositMenu depositMenu = new DepositMenu(username);
+            DepositMenu depositMenu = new DepositMenu(username, frame);
         }
         if(e.getSource()==loanButton) {
             //TODO  loan

@@ -17,10 +17,12 @@ public class AccountMenu implements ActionListener {
     private JButton returnButton;
     private String username;
 
-    private  JFrame frame;
+    private JFrame frame;
+    private JFrame previous;
 
-    public AccountMenu(String userName){
+    public AccountMenu(String userName, JFrame previous){
         username = userName;
+        this.previous = previous;
         JLabel userLabel = new JLabel(userName);
         JLabel message = new JLabel("Choose the account Type you want to open");
         JLabel depositLabel = new JLabel("Input your deposit:");
@@ -139,7 +141,8 @@ public class AccountMenu implements ActionListener {
         }
         // go back to previous page
         if (returnButton.equals(e.getSource())) {
-            frame.toBack();
+            frame.dispose();
+            previous.setVisible(true);
         }
         if (logOutButton.equals(e.getSource())) {
             frame.dispose();

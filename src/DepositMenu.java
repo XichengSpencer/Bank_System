@@ -17,11 +17,13 @@ public class DepositMenu implements ActionListener {
     private JButton logOutButton;
     private JButton returnButton;
     private String username;
+    private JFrame previous;
 
     private  JFrame frame;
 
-    public DepositMenu(String userName){
+    public DepositMenu(String userName, JFrame previous){
         username = userName;
+        this.previous = previous;
         JLabel userLabel = new JLabel(userName);
         JLabel message = new JLabel("Deposit money to you account");
         JLabel depositLabel = new JLabel("Input your deposit:");
@@ -164,7 +166,8 @@ public class DepositMenu implements ActionListener {
 
         // go back to previous page
         if (returnButton.equals(e.getSource())) {
-            frame.toBack();
+            frame.dispose();
+            previous.setVisible(true);
         }
         if (logOutButton.equals(e.getSource())) {
             frame.dispose();

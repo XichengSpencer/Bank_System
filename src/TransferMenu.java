@@ -21,11 +21,13 @@ public class TransferMenu implements ActionListener {
     private JButton logOutButton;
     private JButton returnButton;
     private String username;
+    private JFrame previous;
 
     private  JFrame frame;
 
-    public TransferMenu(String userName){
+    public TransferMenu(String userName, JFrame previous){
         username = userName;
+        this.previous = previous;
         JLabel userLabel = new JLabel(userName);
         JLabel message = new JLabel("Input the account number and the amount");
         JLabel accountNumber = new JLabel("Account Number:");
@@ -170,7 +172,8 @@ public class TransferMenu implements ActionListener {
 
         // go back to previous page
         if (returnButton.equals(e.getSource())) {
-            frame.toBack();
+            frame.dispose();
+            previous.setVisible(true);
         }
         if (logOutButton.equals(e.getSource())) {
             frame.dispose();
