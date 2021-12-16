@@ -40,7 +40,7 @@ public class DepositMenu implements ActionListener {
         userLabel.setFont(new Font(null,Font.ITALIC,20));
         message.setBounds(150,30,270,12);
         message.setFont(new Font(null,Font.BOLD,10));
-        warningLabel.setBounds(20, 220, 300, 25);
+        warningLabel.setBounds(20, 210, 300, 25);
 //        warningLabel.setFont(new Font(null, Font.BOLD, 20));
         depositLabel.setBounds(20, 70, 150, 25);
         currencyLable.setBounds(20, 150, 150, 25);
