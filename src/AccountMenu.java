@@ -9,6 +9,7 @@ public class AccountMenu implements ActionListener {
 
 
     private JTextField depositInput;
+    private JComboBox<String> currencySelect;
     private JLabel warningLabel = new JLabel();
     private JButton checkingButton;
     private JButton savingButton;
@@ -23,7 +24,9 @@ public class AccountMenu implements ActionListener {
         JLabel userLabel = new JLabel(userName);
         JLabel message = new JLabel("Choose the account Type you want to open");
         JLabel depositLabel = new JLabel("Input your deposit:");
+        JLabel currencyLable = new JLabel("Choose the currency:");
         depositInput = new JTextField();
+        currencySelect = new JComboBox<>();
         savingButton = new JButton("Open A Saving Account");
         checkingButton = new JButton("Open A Checking Account");
         returnButton = new JButton("Return");
@@ -36,7 +39,9 @@ public class AccountMenu implements ActionListener {
         warningLabel.setBounds(20, 220, 300, 25);
 //        warningLabel.setFont(new Font(null, Font.BOLD, 20));
         depositLabel.setBounds(20, 70, 150, 25);
+        currencyLable.setBounds(20, 150, 150, 25);
         depositInput.setBounds(20, 110, 150, 25);
+        currencySelect.setBounds(20, 190, 150, 25);
         savingButton.setBounds(180,70,200,25);
         checkingButton.setBounds(180,110,200,25);
         returnButton.setBounds(180,150,200,25);
@@ -48,6 +53,8 @@ public class AccountMenu implements ActionListener {
         frame.add(depositLabel);
         frame.add(warningLabel);
         frame.add(depositInput);
+        frame.add(currencyLable);
+//        frame.add(currencySelect);
         frame.add(savingButton);
         frame.add(checkingButton);
         frame.add(returnButton);
@@ -60,7 +67,11 @@ public class AccountMenu implements ActionListener {
         logOutButton.addActionListener(this);
 
         //panel1.add(userLable);
-
+        currencySelect.addItem("--Select Currency--");
+        currencySelect.addItem("USD");
+        currencySelect.addItem("RMB");
+        currencySelect.addItem("GBP");
+        frame.add(currencySelect);
 
         //panel1.add(userLabel);
 
@@ -91,7 +102,7 @@ public class AccountMenu implements ActionListener {
                     ex.printStackTrace();
                 }
             }
-            fileEditor.writeFile("/src/System Data/" + customer.getId() + "/saving.txt", new String[]{newSavAct.getId(), ""+amount});
+            fileEditor.writeFile("/src/System Data/" + customer.getId() + "/saving.txt", new String[]{newSavAct.getId(), ""+amount, currencySelect.getSelectedItem().toString()});
         }
         // open a checking account
         if (checkingButton.equals(e.getSource())) {
@@ -110,7 +121,7 @@ public class AccountMenu implements ActionListener {
                     ex.printStackTrace();
                 }
             }
-            fileEditor.writeFile("/src/System Data/" + customer.getId() + "/checking.txt", new String[]{newSavAct.getId(), ""+amount});
+            fileEditor.writeFile("/src/System Data/" + customer.getId() + "/checking.txt", new String[]{newSavAct.getId(), ""+amount, currencySelect.getSelectedItem().toString()});
         }
         if (depositInput.equals(e.getSource())) {
             int deposit =Integer.parseInt(depositInput.getText());

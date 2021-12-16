@@ -77,6 +77,7 @@ public class TransferMenu implements ActionListener {
         returnButton.addActionListener(this);
         logOutButton.addActionListener(this);
         transferButton.addActionListener(this);
+//        fromAccountInput.addActionListener(this);
 
         /**
          * Add the accounts into the Combobox
@@ -112,9 +113,9 @@ public class TransferMenu implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        // open a saving account
+        // transfer
 
-        // open a checking account
+
         // go back to previous page
         if (returnButton.equals(e.getSource())) {
             frame.toBack();

@@ -40,7 +40,7 @@ public class AccountData {
                 for(String[] token :accountList){
                     String accountNumber = token[0];
                     Account account = new Account(customer);
-                    list.put("Checking", account);
+                    list.put("checking", account);
                 }
             }
             File stockAccount = new File(accountPath + "/stock.txt");
