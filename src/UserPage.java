@@ -13,6 +13,7 @@ public class UserPage extends JFrame implements ActionListener {
     private JButton loanButton;
     private JButton openAccountButton;
     private JButton logOutButton;
+    private JButton logButton;
     private JButton stockButton;
     private String username;
 
@@ -28,6 +29,7 @@ public class UserPage extends JFrame implements ActionListener {
         depositButton = new JButton("Deposit");
         loanButton = new JButton("Loan");
         stockButton = new JButton("Stock");
+        logButton = new JButton("View Transactions");
         logOutButton = new JButton("Log Out");
 
         userLabel.setBounds(200,10,180,30);
@@ -38,7 +40,8 @@ public class UserPage extends JFrame implements ActionListener {
         depositButton.setBounds(20, 190, 150, 25);
         loanButton.setBounds(20,230,150,25);
         stockButton.setBounds(20,270,150,25);
-        logOutButton.setBounds(20,310,150,25);
+        logButton.setBounds(20,310,150,25);
+        logOutButton.setBounds(20,350,150,25);
 
         frame = new JFrame("UserPage");
         frame.add(userLabel);
@@ -48,6 +51,7 @@ public class UserPage extends JFrame implements ActionListener {
         frame.add(depositButton);
         frame.add(loanButton);
         frame.add(stockButton);
+        frame.add(logButton);
         frame.add(logOutButton);
 
         accountSummaryButton.addActionListener(this);
@@ -56,6 +60,7 @@ public class UserPage extends JFrame implements ActionListener {
         depositButton.addActionListener(this);
         loanButton.addActionListener(this);
         stockButton.addActionListener(this);
+        logButton.addActionListener(this);
         logOutButton.addActionListener(this);
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -92,6 +97,10 @@ public class UserPage extends JFrame implements ActionListener {
             //TODO stock
 
             frame.dispose();
+        }
+        if (e.getSource() == logButton) {
+            frame.dispose();
+            TransactionsMenu transactionsMenu = new TransactionsMenu(username);
         }
         if(e.getSource()==logOutButton) {
             //TODO
