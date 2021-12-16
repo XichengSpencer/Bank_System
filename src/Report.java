@@ -83,10 +83,12 @@ public class Report implements ActionListener {
         date = date.replace("/","_");
         fileEditor.listWrite("/src/System Data/Daily report/"+date+"/","report.txt",list);
     }
-    private void readMeta(List<String[]>exchange, List<String[]>stock){
+    private void readMeta(){
         int saving_count = 0;
         int checking = 0;
-        int new_account = 0;
+        int loan_account = 0;
+        int stock_account = 0;
+        int new_user = 0;
         int deposit_num = 0;
         double deposit_rmb = 0;
         double deposit_usd = 0;
@@ -105,6 +107,8 @@ public class Report implements ActionListener {
             for(int i =1;  i< list.size();i++){
                 String action = list.get(i)[0];
                 switch (action){
+                    case "newUser":
+                        new_user++;
                     case "createSav":
                         saving_count++;
                         break;
@@ -150,9 +154,11 @@ public class Report implements ActionListener {
 
                 }
             }
-            list.add(new String[]{"Number of New Account Created: ",String.valueOf(saving_count)});
+            list.add(new String[]{"Number of New Account Created: ",String.valueOf(new_user)});
             list.add(new String[]{"Saving Account Created: ",String.valueOf(saving_count)});
             list.add(new String[]{"Checking Account Created: ",String.valueOf(checking)});
+            list.add(new String[]{"Loan Account Created: ",String.valueOf(loan_account)});
+            list.add(new String[]{"Stock Account Created: ",String.valueOf(stock_account)});
             list.add(new String[]{"Total of RMB deposit: ",String.valueOf(deposit_rmb)});
             list.add(new String[]{"Total of USD deposit: ",String.valueOf(deposit_usd)});
             list.add(new String[]{"Total of GNP deposit: ",String.valueOf(deposit_gnp)});

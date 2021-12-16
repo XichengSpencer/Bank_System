@@ -32,7 +32,7 @@ public class UserPage extends JFrame implements ActionListener {
         logButton = new JButton("View Transactions");
         logOutButton = new JButton("Log Out");
 
-        userLabel.setBounds(200,10,180,30);
+        userLabel.setBounds(200,10,180,45);
         userLabel.setFont(new Font(null,Font.ITALIC,35));
         accountSummaryButton.setBounds(20,70,150,25);
         openAccountButton.setBounds(20,110,150,25);

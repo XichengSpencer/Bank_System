@@ -27,6 +27,7 @@ public class LoginData {
         loginInfo.put(customer.getName(),new String[]{customer.getPassword(),customer.getId()});
         fileEditor.writeFile("/src/login.txt",new String[]{customer.getName(),customer.getPassword(),customer.getId()});
         File folder = new File(System.getProperty("user.dir")+"/src/System Data/"+customer.getId());
+        fileEditor.writeFile("/src/System Data/metadata.txt",new String[]{"newUser", customer.getId()});
         if (!folder.exists()){
             folder.mkdirs();
         }
