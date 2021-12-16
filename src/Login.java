@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 public class Login implements ActionListener {
     private JTextField userText;
@@ -33,6 +34,14 @@ public class Login implements ActionListener {
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
 
+        //create default metadata file
+        File folder = new File(System.getProperty("user.dir")+"/src/System Data/");
+        if(!folder.exists()){
+            folder.mkdirs();
+        }
+        if(!new File(System.getProperty("user.dir")+"/src/System Data/metadata.txt").exists()) {
+            fileEditor.writeFile("/src/System Data/metadata.txt", new String[]{"0"});
+        }
     }
 
     public void actionPerformed(ActionEvent e) {

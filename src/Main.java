@@ -12,9 +12,10 @@ public class Main {
         //test for read
         //List<String[]> list = fileEditor.fileRead("/src/abc.txt");
         //test for write
-        // fileEditor.writeFile("/src/abc.txt", new String[]{"iPhone", "13pro"});
+         //fileEditor.writeFile("/src/a.txt", new String[]{"iPhone", "13pro"});
         //test for list write
         //fileEditor.listWrite("/src/System Data/file/","file.txt", Arrays.asList(new String[]{"a"},new String[]{"b"})) ;
-
+        //test for meta
+        //fileEditor.writeMeta("/src/System Data/metadata.txt",new String[]{"0"});
     }
 }
