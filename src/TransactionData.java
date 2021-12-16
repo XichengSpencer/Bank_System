@@ -11,7 +11,8 @@ public class TransactionData {
         return transactionData;
     }
 
-    public void doTransaction(Transaction transaction) throws IOException {
+    public String doTransaction(Transaction transaction) throws IOException {
+        String msg = "";
         // change amount from customers
         String fromCustomerId = transaction.getFrom().getCustomer().getId();
         String toCustomerId = transaction.getTo().getCustomer().getId();
@@ -21,9 +22,9 @@ public class TransactionData {
         File toFolder = new File(toPath);
         if (!fromFolder.exists()) {
             fromFolder.mkdirs();
-            return;
+            msg = "No account";
+            return msg;
         } else {
-
             if (transaction.getFrom().getAccountType().equals("saving")) {
                 File savingAccount = new File(fromPath + "/saving.txt");
                 if (savingAccount.length() != 0) {
@@ -45,10 +46,74 @@ public class TransactionData {
                     }
                 }
             } else if (transaction.getFrom().getAccountType().equals("checking")) {
-            } else {
+                File checkingAccount = new File(fromPath + "/checking.txt");
+                if (checkingAccount.length() != 0) {
+                    List<String[]> accountList = fileEditor.fileRead("/src/System Data/"+fromCustomerId+"/checking.txt");
+                    // empty file for update
+                    FileWriter fileWriter = new FileWriter(checkingAccount);
+                    fileWriter.write("");
+                    fileWriter.flush();
+                    fileWriter.close();
 
+                    for(String[] token :accountList){
+                        if (token[2].equals(transaction.getFromCurrency())) { // the same currency with fromAccount
+                            // choose the same currency
+                            double amount = Double.valueOf(token[1]);
+                            amount -= transaction.getAmount();
+                            token[1] = ""+amount;
+                        }
+                        fileEditor.writeFile("/src/System Data/"+fromCustomerId+"/checking.txt", token);
+                    }
+                }
             }
+        }
 
+        if (!toFolder.exists()) {
+            toFolder.mkdirs();
+            msg = "No account";
+            return msg;
+        } else {
+            if (transaction.getTo().getAccountType().equals("saving")) {
+                File savingAccount = new File(toPath + "/saving.txt");
+                if (savingAccount.length() != 0) {
+                    List<String[]> accountList = fileEditor.fileRead("/src/System Data/"+toCustomerId+"/saving.txt");
+                    // empty file for update
+                    FileWriter fileWriter = new FileWriter(savingAccount);
+                    fileWriter.write("");
+                    fileWriter.flush();
+                    fileWriter.close();
+
+                    for(String[] token :accountList){
+                        if (token[2].equals(transaction.getFromCurrency())) {
+                            // choose the same currency
+                            double amount = Double.valueOf(token[1]);
+                            amount += transaction.getAmount();
+                            token[1] = ""+amount;
+                        }
+                        fileEditor.writeFile("/src/System Data/"+toCustomerId+"/saving.txt", token);
+                    }
+                }
+            } else if (transaction.getTo().getAccountType().equals("checking")) {
+                File checkingAccount = new File(toPath + "/checking.txt");
+                if (checkingAccount.length() != 0) {
+                    List<String[]> accountList = fileEditor.fileRead("/src/System Data/"+toCustomerId+"/checking.txt");
+                    // empty file for update
+                    FileWriter fileWriter = new FileWriter(checkingAccount);
+                    fileWriter.write("");
+                    fileWriter.flush();
+                    fileWriter.close();
+
+                    for(String[] token :accountList){
+                        if (token[2].equals(transaction.getFromCurrency())) { // the same currency with fromAccount
+                            // choose the same currency
+                            double amount = Double.valueOf(token[1]);
+                            amount += transaction.getAmount();
+                            token[1] = ""+amount;
+                        }
+                        fileEditor.writeFile("/src/System Data/"+toCustomerId+"/checking.txt", token);
+                    }
+                }
+            }
         }
 
         // log in file
@@ -62,5 +127,6 @@ public class TransactionData {
             }
         }
         fileEditor.writeFile("/src/transaction.txt", new String[]{transaction.getTransferTime().toString(), transaction.getFrom().getCustomer().getName(), transaction.getFrom().getAccountType(), transaction.getTo().getCustomer().getName(), transaction.getTo().getAccountType(), ""+transaction.getAmount(), transaction.getFromCurrency()});
+        return msg;
     }
 }
