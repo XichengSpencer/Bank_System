@@ -86,7 +86,8 @@ public class UserPage extends JFrame implements ActionListener {
         }
         if(e.getSource()==loanButton) {
             //TODO  loan
-            frame.dispose();
+            frame.setVisible(false);
+            LoanMenu loanMenu = new LoanMenu(username,frame);
         }
         if(e.getSource()==stockButton) {
             //TODO stock
