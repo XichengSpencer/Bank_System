@@ -29,11 +29,12 @@ public class AccountSummaryMenu implements ActionListener {
         this.previous = previous;
         JLabel userLabel = new JLabel(userName);
         JLabel message = new JLabel("The summary of you accounts");
-        JLabel savingLabel = new JLabel("Saving Account:");
+        JLabel savingLabel = new JLabel("Saving:");
         JLabel usdLable = new JLabel("USD:");
         JLabel rmbLable = new JLabel("RMB:");
         JLabel gbpLable = new JLabel("GNP:");
-        JLabel checkingLable = new JLabel("Checking Account:");
+        JLabel checkingLable = new JLabel("Checking:");
+        JLabel securityLable = new JLabel("Security:");
 
         returnButton = new JButton("Return");
         logOutButton = new JButton("Log Out");
@@ -44,8 +45,9 @@ public class AccountSummaryMenu implements ActionListener {
         message.setFont(new Font(null,Font.BOLD,10));
         warningLabel.setBounds(20, 220, 300, 25);
 
-        savingLabel.setBounds(70, 60, 150, 25);
-        checkingLable.setBounds(240, 60, 150, 25);
+        savingLabel.setBounds(70, 60, 80, 25);
+        checkingLable.setBounds(160, 60, 80, 25);
+        securityLable.setBounds(250, 60, 80, 25);
         usdLable.setBounds(20, 90, 30, 20);
         rmbLable.setBounds(20, 130, 30, 20);
         gbpLable.setBounds(20, 170, 30, 20);
@@ -54,9 +56,9 @@ public class AccountSummaryMenu implements ActionListener {
         sRMB.setBounds(70, 130, 80, 20);
         sGBP.setBounds(70, 170, 80, 20);
 
-        cUSD.setBounds(240, 90, 80, 20);
-        cRMB.setBounds(240, 130, 80, 20);
-        cGBP.setBounds(240, 170, 80, 20);
+        cUSD.setBounds(160, 90, 80, 20);
+        cRMB.setBounds(160, 130, 80, 20);
+        cGBP.setBounds(160, 170, 80, 20);
 
         returnButton.setBounds(20,230,80,25);
         logOutButton.setBounds(120,230,80,25);
@@ -67,7 +69,8 @@ public class AccountSummaryMenu implements ActionListener {
         frame.add(checkingLable);
         frame.add(warningLabel);
         frame.add(savingLabel);
-        frame.add(checkingLable);
+        frame.add(securityLable);
+        frame.add(securityLable);
         frame.add(usdLable);
         frame.add(rmbLable);
         frame.add(gbpLable);

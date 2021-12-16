@@ -4,3 +4,4 @@ Wed Dec 15 22:34:11 EST 2021,Transfer,abc,saving,abc,checking,10.0,RMB
 Wed Dec 15 22:37:10 EST 2021,Transfer,abc,saving,abc,checking,10.0,RMB
 Wed Dec 15 22:46:33 EST 2021,Transfer,abc,checking,abc,saving,10.0,RMB
 Wed Dec 15 22:47:06 EST 2021,Transfer,abc,checking,abc,saving,10.0,RMB
+Thu Dec 16 16:34:31 EST 2021,Transfer,abc,saving,abc,security,1000.0,USD

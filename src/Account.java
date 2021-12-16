@@ -45,6 +45,11 @@ public class Account {
         addAmount(currency, amount);
     }
 
+    public Account(String accountType, Customer customer, double amount) {
+        this(accountType, customer);
+        addAmount("USD", amount);
+    }
+
     public Account(String accountType, Customer customer, String currency, double amount, String id) {
         this(accountType, customer);
         addAmount(currency, amount);

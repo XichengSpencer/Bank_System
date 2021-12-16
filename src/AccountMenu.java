@@ -11,6 +11,7 @@ public class AccountMenu implements ActionListener {
     private JTextField depositInput;
     private JComboBox<String> currencySelect;
     private JLabel warningLabel = new JLabel();
+    private JButton securityButton;
     private JButton checkingButton;
     private JButton savingButton;
     private JButton logOutButton;
@@ -31,6 +32,7 @@ public class AccountMenu implements ActionListener {
         currencySelect = new JComboBox<>();
         savingButton = new JButton("Open A Saving Account");
         checkingButton = new JButton("Open A Checking Account");
+        securityButton = new JButton("Open A Security Account");
         returnButton = new JButton("Return");
         logOutButton = new JButton("Log Out");
 
@@ -38,7 +40,7 @@ public class AccountMenu implements ActionListener {
         userLabel.setFont(new Font(null,Font.ITALIC,20));
         message.setBounds(100,30,270,12);
         message.setFont(new Font(null,Font.BOLD,10));
-        warningLabel.setBounds(20, 220, 300, 25);
+        warningLabel.setBounds(20, 210, 300, 25);
 //        warningLabel.setFont(new Font(null, Font.BOLD, 20));
         depositLabel.setBounds(20, 70, 150, 25);
         currencyLable.setBounds(20, 150, 150, 25);
@@ -46,8 +48,9 @@ public class AccountMenu implements ActionListener {
         currencySelect.setBounds(20, 190, 150, 25);
         savingButton.setBounds(180,70,200,25);
         checkingButton.setBounds(180,110,200,25);
-        returnButton.setBounds(180,150,200,25);
-        logOutButton.setBounds(180,190,200,25);
+        securityButton.setBounds(180,150,200,25);
+        returnButton.setBounds(20,230,80,25);
+        logOutButton.setBounds(120,230,80,25);
 
         frame = new JFrame("Account Menu");
         frame.add(userLabel);
@@ -59,12 +62,14 @@ public class AccountMenu implements ActionListener {
 //        frame.add(currencySelect);
         frame.add(savingButton);
         frame.add(checkingButton);
+        frame.add(securityButton);
         frame.add(returnButton);
         frame.add(logOutButton);
 
         depositInput.addActionListener(this);
         savingButton.addActionListener(this);
         checkingButton.addActionListener(this);
+        securityButton.addActionListener(this);
         returnButton.addActionListener(this);
         logOutButton.addActionListener(this);
 
@@ -133,6 +138,21 @@ public class AccountMenu implements ActionListener {
                 return;
             }
             fileEditor.writeFile("/src/System Data/" + customer.getId() + "/checking.txt", new String[]{newSavAct.getId(), ""+amount, currencySelect.getSelectedItem().toString()});
+        }
+        // create a security account
+        if (securityButton.equals(e.getSource())) {
+            // make sure the amount in saving account is larger than 5000
+            CustomerData customerData = CustomerData.getInstance();
+            Customer customer = customerData.selectCustomer(username);
+            double amountInSaving = customer.getAccountList().get("saving").getTotalAmount().get("USD");
+            if (amountInSaving < 5000.0) {
+                warningLabel.setText("You don't have enough money to open a security account");
+                return;
+            } else {
+                warningLabel.setText("");
+            }
+            SecurityMenu securityMenu = new SecurityMenu(username, previous);
+
         }
         if (depositInput.equals(e.getSource())) {
             int deposit =Integer.parseInt(depositInput.getText());
