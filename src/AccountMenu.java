@@ -101,7 +101,7 @@ public class AccountMenu implements ActionListener {
                 try {
                     accountFile.createNewFile();
                     //add action to meta
-                    fileEditor.writeMeta("/src/System Data/metadata.txt",new String[]{"created","saving"});
+
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }
@@ -109,6 +109,9 @@ public class AccountMenu implements ActionListener {
                 warningLabel.setText("Already have one");
                 return;
             }
+            //write metadata
+            fileEditor.writeFile("/src/System Data/metadata.txt",new String[]{"createSav"});
+
             fileEditor.writeFile("/src/System Data/" + customer.getId() + "/saving.txt", new String[]{newSavAct.getId(), ""+amount, currencySelect.getSelectedItem().toString()});
         }
         // open a checking account
@@ -132,6 +135,7 @@ public class AccountMenu implements ActionListener {
                 warningLabel.setText("Already have one");
                 return;
             }
+            fileEditor.writeFile("/src/System Data/metadata.txt",new String[]{"createChk"});
             fileEditor.writeFile("/src/System Data/" + customer.getId() + "/checking.txt", new String[]{newSavAct.getId(), ""+amount, currencySelect.getSelectedItem().toString()});
         }
         if (depositInput.equals(e.getSource())) {

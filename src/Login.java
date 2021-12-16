@@ -87,6 +87,8 @@ public class Login implements ActionListener {
                 Customer newCus = new Customer(userName, password);
 //                logininfo.set(userID,password);
                 logininfo.set(newCus);
+
+                messageLabel.setText("Account Created");
             }
         }
     }
