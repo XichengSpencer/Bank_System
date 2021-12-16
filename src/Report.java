@@ -110,7 +110,7 @@ public class Report implements ActionListener {
         double loan_usd = 0;
         double loan_gnp = 0;
 
-        List<String[]> list = fileEditor.fileRead("/src/System Data/metadata.txt");
+        List<String[]> list = fileEditor.fileRead("/src/metadata.txt");
         List<String[]> result = new ArrayList<>();
         if (list.size() > 0) {
             for (int i = 1; i < list.size(); i++) {
@@ -173,22 +173,39 @@ public class Report implements ActionListener {
                 }
             }
             result.add(new String[]{"Number of New Account Created: ", String.valueOf(new_user)});
+            result.add(new String[]{"\n"});
             result.add(new String[]{"Saving Account Created: ", String.valueOf(saving_count)});
+            result.add(new String[]{"\n"});
             result.add(new String[]{"Checking Account Created: ", String.valueOf(checking)});
+            result.add(new String[]{"\n"});
             result.add(new String[]{"Loan Account Created: ", String.valueOf(loan_account)});
+            result.add(new String[]{"\n"});
             result.add(new String[]{"Stock Account Created: ", String.valueOf(stock_account)});
+            result.add(new String[]{"\n"});
             result.add(new String[]{"Stock transaction amount: ", String.valueOf(stock_account)});
+            result.add(new String[]{"\n"});
             result.add(new String[]{"Total number of deposit: ", String.valueOf(deposit_num)});
+            result.add(new String[]{"\n"});
             result.add(new String[]{"Total of RMB deposit: ", String.valueOf(deposit_rmb)});
+            result.add(new String[]{"\n"});
             result.add(new String[]{"Total of USD deposit: ", String.valueOf(deposit_usd)});
+            result.add(new String[]{"\n"});
             result.add(new String[]{"Total of GNP deposit: ", String.valueOf(deposit_gnp)});
+            result.add(new String[]{"\n"});
             result.add(new String[]{"Total number of transaction: ", String.valueOf(transaction_num)});
+            result.add(new String[]{"\n"});
             result.add(new String[]{"Total of RMB transaction: ", String.valueOf(transaction_rmb)});
+            result.add(new String[]{"\n"});
             result.add(new String[]{"Total of USD transaction: ", String.valueOf(transaction_usd)});
+            result.add(new String[]{"\n"});
             result.add(new String[]{"Total of GNP transaction: ", String.valueOf(transaction_gnp)});
+            result.add(new String[]{"\n"});
             result.add(new String[]{"Total number of loan: ", String.valueOf(loan_num)});
+            result.add(new String[]{"\n"});
             result.add(new String[]{"Total of RMB loan: ", String.valueOf(loan_rmb)});
+            result.add(new String[]{"\n"});
             result.add(new String[]{"Total of USD loan: ", String.valueOf(loan_usd)});
+            result.add(new String[]{"\n"});
             result.add(new String[]{"Total of GNP loan: ", String.valueOf(loan_gnp)});
 
         }
