@@ -100,20 +100,4 @@ public class AccountData {
         return account;
     }
 
-    public HashMap<String,Account> getCheckingAccountList(Customer customer) {
-        HashMap<String,Account> list = new HashMap<>();
-        String accountPath = System.getProperty("user.dir")+"/src/System Data/"+customer.getId();
-        File checkingAccount = new File(accountPath + "/checking.txt");
-        Account cAccount = new Account("checking", customer);
-        if (checkingAccount.length() != 0) {
-            List<String[]> accountList = fileEditor.fileRead("/src/System Data/"+customer.getId()+"/checking.txt");
-            for(String[] token :accountList){
-                String accountNumber = token[0];
-                cAccount.setId(accountNumber);
-                cAccount.addAmount(token[2], Double.valueOf(token[1]));
-            }
-            list.put("checking", cAccount);
-        }
-        return list;
-    }
 }

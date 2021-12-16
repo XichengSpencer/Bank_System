@@ -64,8 +64,8 @@ public class RequestLoanMenu implements ActionListener {
 
         warningLabel.setBounds(170, 170, 300, 25);
 
-        returnButton.setBounds(20,200,80,25);
-        logOutButton.setBounds(20,230,80,25);
+        returnButton.setBounds(20,230,80,25);
+        logOutButton.setBounds(120,230,80,25);
 
         frame = new JFrame("Account Menu");
         frame.add(userLabel);
@@ -136,47 +136,10 @@ public class RequestLoanMenu implements ActionListener {
                 return;
             }
 
-            String accountPath = System.getProperty("user.dir") + "/src/System Data/" + customer.getId() + "/" + account + ".txt";
-            File accountFile = new File(accountPath);
-            if (!accountFile.exists()) {
-                try {
-                    accountFile.createNewFile();
-                } catch (IOException ex) {
-                    ex.printStackTrace();
-                }
-            }
+            LoanData.updateAccount(customer, account, currency, amount);
 
-            List<String[]> amountList = fileEditor.fileRead("/src/System Data/"+ customer.getId() + "/" + account + ".txt");
-            FileWriter fileWriter = null;
-            try {
-                fileWriter = new FileWriter(accountFile);
-                fileWriter.write("");
-                fileWriter.flush();
-                fileWriter.close();
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
+            LoanData.updateLoan(customer, account, loan, currency);
 
-            for(String[] token :amountList){
-                if (token[2].equals(currency)) { // find the correct currency
-                    // choose the same currency
-                    double amount1 = Double.valueOf(token[1]);
-                    amount1 += amount;
-                    token[1] = ""+amount1;
-                }
-                fileEditor.writeFile("/src/System Data/"+customer.getId()+"/" + account + ".txt", token);
-            }
-
-            String loanPath = System.getProperty("user.dir") + "/src/System Data/" + customer.getId() + "/loan.txt";
-            File accountFile1 = new File(loanPath);
-            if (!accountFile1.exists()){
-                try {
-                    accountFile1.createNewFile();
-                } catch (IOException ex) {
-                    ex.printStackTrace();
-                }
-            }
-            fileEditor.writeFile("/src/System Data/" + customer.getId() + "/loan.txt", new String[]{account, ""+(int)loan, currency});
             warningLabel.setText("Confirmed");
         }
     }
