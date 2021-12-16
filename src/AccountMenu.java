@@ -114,6 +114,7 @@ public class AccountMenu implements ActionListener {
             CustomerData customerData = CustomerData.getInstance();
             Customer customer = customerData.selectCustomer(username);
             double amount = Double.valueOf(depositInput.getText()) - 5;
+            // TODO change to checkingAccount type
             Account newSavAct = new Account(customer, amount);
             customer.addAccount("saving", newSavAct);
             // update the file or add the file under the folder

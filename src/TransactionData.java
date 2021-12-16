@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -128,5 +129,26 @@ public class TransactionData {
         }
         fileEditor.writeFile("/src/transaction.txt", new String[]{transaction.getTransferTime().toString(), "Transfer", transaction.getFrom().getCustomer().getName(), transaction.getFrom().getAccountType(), transaction.getTo().getCustomer().getName(), transaction.getTo().getAccountType(), ""+transaction.getAmount(), transaction.getFromCurrency()});
         return msg;
+    }
+
+    public List<String[]> getAllTransactions() {
+        List<String[]> allTransactions = new ArrayList<>();
+        String transactionPath = System.getProperty("user.dir") + "/src/transaction.txt";
+        File transactionFile = new File(transactionPath);
+        if (transactionFile.length() != 0) {
+            allTransactions = fileEditor.fileRead("/src/transaction.txt");
+        }
+        return allTransactions;
+    }
+
+    public List<String[]> getTransactions(String userName) {
+        List<String[]> allTransactions = getAllTransactions();
+        List<String[]> customerTransaction = new ArrayList<>();
+        for (String[] token : allTransactions) {
+            if (token[2].equals(userName)) {
+                customerTransaction.add(token);
+            }
+        }
+        return customerTransaction;
     }
 }
