@@ -39,9 +39,6 @@ public class Login implements ActionListener {
         if(!folder.exists()){
             folder.mkdirs();
         }
-        if(!new File(System.getProperty("user.dir")+"/src/System Data/metadata.txt").exists()) {
-            fileEditor.writeFile("/src/System Data/metadata.txt", new String[]{"0"});
-        }
     }
 
     public void actionPerformed(ActionEvent e) {
