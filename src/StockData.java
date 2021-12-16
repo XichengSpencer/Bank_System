@@ -143,7 +143,7 @@ public class StockData {
         HashMap<String, Double> stocklist = getStockInformation();
 
         if (userlist == null){
-            return -1;
+            return 0;
         }
 
         double totalAmount = 0;
