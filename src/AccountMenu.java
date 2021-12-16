@@ -34,7 +34,7 @@ public class AccountMenu implements ActionListener {
 
         userLabel.setBounds(200,10,130,20);
         userLabel.setFont(new Font(null,Font.ITALIC,20));
-        message.setBounds(150,30,270,12);
+        message.setBounds(100,30,270,12);
         message.setFont(new Font(null,Font.BOLD,10));
         warningLabel.setBounds(20, 220, 300, 25);
 //        warningLabel.setFont(new Font(null, Font.BOLD, 20));

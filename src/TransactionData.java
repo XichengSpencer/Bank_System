@@ -126,7 +126,7 @@ public class TransactionData {
                 ex.printStackTrace();
             }
         }
-        fileEditor.writeFile("/src/transaction.txt", new String[]{transaction.getTransferTime().toString(), transaction.getFrom().getCustomer().getName(), transaction.getFrom().getAccountType(), transaction.getTo().getCustomer().getName(), transaction.getTo().getAccountType(), ""+transaction.getAmount(), transaction.getFromCurrency()});
+        fileEditor.writeFile("/src/transaction.txt", new String[]{transaction.getTransferTime().toString(), "Transfer", transaction.getFrom().getCustomer().getName(), transaction.getFrom().getAccountType(), transaction.getTo().getCustomer().getName(), transaction.getTo().getAccountType(), ""+transaction.getAmount(), transaction.getFromCurrency()});
         return msg;
     }
 }

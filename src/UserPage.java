@@ -69,9 +69,8 @@ public class UserPage extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource()==accountSummaryButton) {
-            //TODO change Interest
-
             frame.dispose();
+            AccountSummaryMenu accountSummaryMenu = new AccountSummaryMenu(username);
         }
         if(e.getSource()==openAccountButton) {
             frame.dispose();

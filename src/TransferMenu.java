@@ -52,13 +52,13 @@ public class TransferMenu implements ActionListener {
         amount.setBounds(210, 70, 70, 25);
         amountInput.setBounds(210, 110, 70, 25);
         currency.setBounds(300,70, 80, 25);
-        currencyInput.setBounds(300 ,110, 40, 25);
+        currencyInput.setBounds(300 ,110, 90, 25);
         fromAccount.setBounds(20, 140, 170, 25);
-        fromAccountInput.setBounds(20, 160, 170, 25);
+        fromAccountInput.setBounds(20, 160, 200, 25);
         transferButton.setBounds(280, 160, 100, 25);
 
-        returnButton.setBounds(20,210,80,25);
-        logOutButton.setBounds(20,230,80,25);
+        returnButton.setBounds(20,230,80,25);
+        logOutButton.setBounds(120,230,80,25);
 
         frame = new JFrame("Transfer Menu");
         frame.add(userLabel);

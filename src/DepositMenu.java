@@ -49,8 +49,8 @@ public class DepositMenu implements ActionListener {
         depositButton.setBounds(180, 190, 150, 25);
 
 
-        returnButton.setBounds(20,210,80,25);
-        logOutButton.setBounds(20,230,80,25);
+        returnButton.setBounds(20,230,80,25);
+        logOutButton.setBounds(120,230,80,25);
 
         frame = new JFrame("Deposit Menu");
         frame.add(userLabel);
