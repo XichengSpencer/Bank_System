@@ -89,7 +89,7 @@ public class AccountMenu implements ActionListener {
         if (savingButton.equals(e.getSource())) {
             CustomerData customerData = CustomerData.getInstance();
             Customer customer = customerData.selectCustomer(username);
-            int amount = Integer.parseInt(depositInput.getText()) - 5;
+            double amount = Double.valueOf(depositInput.getText()) - 5;
             Account newSavAct = new Account(customer, amount);
             customer.addAccount("saving", newSavAct);
             // update the file or add the file under the folder
@@ -111,7 +111,7 @@ public class AccountMenu implements ActionListener {
         if (checkingButton.equals(e.getSource())) {
             CustomerData customerData = CustomerData.getInstance();
             Customer customer = customerData.selectCustomer(username);
-            int amount = Integer.parseInt(depositInput.getText()) - 5;
+            double amount = Double.valueOf(depositInput.getText()) - 5;
             Account newSavAct = new Account(customer, amount);
             customer.addAccount("saving", newSavAct);
             // update the file or add the file under the folder

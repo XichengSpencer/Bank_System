@@ -13,7 +13,8 @@ public class TransferMenu implements ActionListener {
 
     private JTextField accountNumberInput;
     private JTextField amountInput;
-    private JTextField currencyInput;
+    //    private JTextField currencyInput;
+    private JComboBox<String> currencyInput;
     private JComboBox<String> fromAccountInput;
     private JLabel warningLabel = new JLabel();
     private JButton transferButton;
@@ -33,7 +34,7 @@ public class TransferMenu implements ActionListener {
         JLabel fromAccount = new JLabel("From Account:");
         accountNumberInput = new JTextField();
         amountInput = new JTextField();
-        currencyInput = new JTextField();
+        currencyInput = new JComboBox<>();
         fromAccountInput = new JComboBox<>();
         transferButton = new JButton("Transfer");
 
@@ -59,7 +60,7 @@ public class TransferMenu implements ActionListener {
         returnButton.setBounds(20,210,80,25);
         logOutButton.setBounds(20,230,80,25);
 
-        frame = new JFrame("Account Menu");
+        frame = new JFrame("Transfer Menu");
         frame.add(userLabel);
         frame.add(message);
         frame.add(accountNumber);
@@ -67,9 +68,7 @@ public class TransferMenu implements ActionListener {
         frame.add(amount);
         frame.add(amountInput);
         frame.add(currency);
-        frame.add(currencyInput);
         frame.add(fromAccount);
-//        frame.add(fromAccountInput);
         frame.add(transferButton);
 
         frame.add(warningLabel);
@@ -80,6 +79,13 @@ public class TransferMenu implements ActionListener {
         logOutButton.addActionListener(this);
         transferButton.addActionListener(this);
 //        fromAccountInput.addActionListener(this);
+
+        currencyInput.addItem("--Please Select--");
+        currencyInput.addItem("USD");
+        currencyInput.addItem("RMB");
+        currencyInput.addItem("GBP");
+
+        frame.add(currencyInput);
 
         /**
          * Add the accounts into the Combobox
@@ -151,7 +157,7 @@ public class TransferMenu implements ActionListener {
             Account from = accountData.getAccount(fromAccountType, fromCustomer, fromAccountNumber);
             Account to = accountData.getAccount(toAccountType, toCustomer, toAccountNumber);
             double amount = Double.valueOf(amountInput.getText());
-            String fromCurrency = currencyInput.getText();
+            String fromCurrency = currencyInput.getSelectedItem().toString();
 
             Transfer transfer = new Transfer(from, to, amount, fromCurrency);
             try {
