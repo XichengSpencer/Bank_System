@@ -2,7 +2,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class Report implements ActionListener {
@@ -16,6 +19,8 @@ public class Report implements ActionListener {
     private String interestPath = "/src/System Data/Interest.txt";
     private String ratePath =  "/src/System Data/Exchange.txt";
     private String metaPath = "/src/System Data/metadata.txt";
+    private String transactionPath = "/src/transaction.txt";
+    private SimpleDateFormat sdf =new SimpleDateFormat("MM/dd/yyyy");
 
     public Report(){
         message = new JLabel();
@@ -78,16 +83,19 @@ public class Report implements ActionListener {
         List<String[]> stocklist =fileEditor.fileRead(stockPath);
         list.addAll(stocklist);
 
-
+        list.addAll(readMeta(date));
 
         date = date.replace("/","_");
         fileEditor.listWrite("/src/System Data/Daily report/"+date+"/","report.txt",list);
     }
-    private void readMeta(){
+
+    private List<String []> readMeta(String Date) {
+
         int saving_count = 0;
         int checking = 0;
         int loan_account = 0;
         int stock_account = 0;
+        double stock_value = 0;
         int new_user = 0;
         int deposit_num = 0;
         double deposit_rmb = 0;
@@ -103,73 +111,88 @@ public class Report implements ActionListener {
         double loan_gnp = 0;
 
         List<String[]> list = fileEditor.fileRead("/src/System Data/metadata.txt");
-        if(list.size()>=1){
-            for(int i =1;  i< list.size();i++){
-                String action = list.get(i)[0];
-                switch (action){
-                    case "newUser":
-                        new_user++;
-                    case "createSav":
-                        saving_count++;
-                        break;
-                    case "createChk":
-                        checking++;
-                        break;
-                    case "depositRMB":
-                        deposit_num++;
-                        deposit_rmb+=Double.valueOf(list.get(i)[1]);
-                        break;
-                    case "depositUSD":
-                        deposit_num++;
-                        deposit_usd+=Double.valueOf(list.get(i)[1]);
-                        break;
-                    case "depositGNP":
-                        deposit_num++;
-                        deposit_gnp+=Double.valueOf(list.get(i)[1]);
-                        break;
-                    case "transactionUSD":
-                        transaction_num++;
-                        transaction_usd+=Double.valueOf(list.get(i)[1]);
-                        break;
-                    case "transactionRMB":
-                        transaction_num++;
-                        transaction_rmb+=Double.valueOf(list.get(i)[1]);
-                        break;
-                    case "transactionGNP":
-                        transaction_num++;
-                        transaction_gnp+=Double.valueOf(list.get(i)[1]);
-                        break;
-                    case "loanRMB":
-                        loan_num++;
-                        loan_rmb+=Double.valueOf(list.get(i)[1]);
-                        break;
-                    case "loanUSD":
-                        loan_num++;
-                        loan_rmb+=Double.valueOf(list.get(i)[1]);
-                        break;
-                    case "loanGNP":
-                        loan_num++;
-                        loan_rmb+=Double.valueOf(list.get(i)[1]);
-                        break;
-
+        List<String[]> result = new ArrayList<>();
+        if (list.size() > 0) {
+            for (int i = 1; i < list.size(); i++) {
+                try {
+                    Date record = sdf.parse(list.get(i)[0]);
+                    Date current = sdf.parse(Date);
+                    if (record.equals(current)) {
+                        String action = list.get(i)[1];
+                        switch (action) {
+                            case "newUser":
+                                new_user++;
+                            case "createSav":
+                                saving_count++;
+                                break;
+                            case "createChk":
+                                checking++;
+                                break;
+                            case "depositRMB":
+                                deposit_num++;
+                                deposit_rmb += Double.valueOf(list.get(i)[2]);
+                                break;
+                            case "depositUSD":
+                                deposit_num++;
+                                deposit_usd += Double.valueOf(list.get(i)[2]);
+                                break;
+                            case "depositGNP":
+                                deposit_num++;
+                                deposit_gnp += Double.valueOf(list.get(i)[2]);
+                                break;
+                            case "transactionUSD":
+                                transaction_num++;
+                                transaction_usd += Double.valueOf(list.get(i)[2]);
+                                break;
+                            case "transactionRMB":
+                                transaction_num++;
+                                transaction_rmb += Double.valueOf(list.get(i)[2]);
+                                break;
+                            case "transactionGNP":
+                                transaction_num++;
+                                transaction_gnp += Double.valueOf(list.get(i)[2]);
+                                break;
+                            case "loanRMB":
+                                loan_num++;
+                                loan_rmb += Double.valueOf(list.get(i)[2]);
+                                break;
+                            case "loanUSD":
+                                loan_num++;
+                                loan_rmb += Double.valueOf(list.get(i)[2]);
+                                break;
+                            case "loanGNP":
+                                loan_num++;
+                                loan_rmb += Double.valueOf(list.get(i)[2]);
+                                break;
+                            case"Stock":
+                                stock_value += Double.valueOf(list.get(i)[2]);
+                        }
+                    }
+                } catch (ParseException exp) {
+                    exp.printStackTrace();
                 }
             }
-            list.add(new String[]{"Number of New Account Created: ",String.valueOf(new_user)});
-            list.add(new String[]{"Saving Account Created: ",String.valueOf(saving_count)});
-            list.add(new String[]{"Checking Account Created: ",String.valueOf(checking)});
-            list.add(new String[]{"Loan Account Created: ",String.valueOf(loan_account)});
-            list.add(new String[]{"Stock Account Created: ",String.valueOf(stock_account)});
-            list.add(new String[]{"Total of RMB deposit: ",String.valueOf(deposit_rmb)});
-            list.add(new String[]{"Total of USD deposit: ",String.valueOf(deposit_usd)});
-            list.add(new String[]{"Total of GNP deposit: ",String.valueOf(deposit_gnp)});
-            list.add(new String[]{"Total of RMB transaction: ",String.valueOf(transaction_rmb)});
-            list.add(new String[]{"Total of USD transaction: ",String.valueOf(transaction_usd)});
-            list.add(new String[]{"Total of GNP transaction: ",String.valueOf(transaction_gnp)});
-            list.add(new String[]{"Total of RMB loan: ",String.valueOf(loan_rmb)});
-            list.add(new String[]{"Total of USD loan: ",String.valueOf(loan_usd)});
-            list.add(new String[]{"Total of GNP loan: ",String.valueOf(loan_gnp)});
+            result.add(new String[]{"Number of New Account Created: ", String.valueOf(new_user)});
+            result.add(new String[]{"Saving Account Created: ", String.valueOf(saving_count)});
+            result.add(new String[]{"Checking Account Created: ", String.valueOf(checking)});
+            result.add(new String[]{"Loan Account Created: ", String.valueOf(loan_account)});
+            result.add(new String[]{"Stock Account Created: ", String.valueOf(stock_account)});
+            result.add(new String[]{"Stock transaction amount: ", String.valueOf(stock_account)});
+            result.add(new String[]{"Total number of deposit: ", String.valueOf(deposit_num)});
+            result.add(new String[]{"Total of RMB deposit: ", String.valueOf(deposit_rmb)});
+            result.add(new String[]{"Total of USD deposit: ", String.valueOf(deposit_usd)});
+            result.add(new String[]{"Total of GNP deposit: ", String.valueOf(deposit_gnp)});
+            result.add(new String[]{"Total number of transaction: ", String.valueOf(transaction_num)});
+            result.add(new String[]{"Total of RMB transaction: ", String.valueOf(transaction_rmb)});
+            result.add(new String[]{"Total of USD transaction: ", String.valueOf(transaction_usd)});
+            result.add(new String[]{"Total of GNP transaction: ", String.valueOf(transaction_gnp)});
+            result.add(new String[]{"Total number of loan: ", String.valueOf(loan_num)});
+            result.add(new String[]{"Total of RMB loan: ", String.valueOf(loan_rmb)});
+            result.add(new String[]{"Total of USD loan: ", String.valueOf(loan_usd)});
+            result.add(new String[]{"Total of GNP loan: ", String.valueOf(loan_gnp)});
 
         }
+        return result;
 
     }
 }

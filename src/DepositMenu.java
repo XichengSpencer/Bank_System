@@ -160,6 +160,7 @@ public class DepositMenu implements ActionListener {
                     token[1] = ""+amount1;
                 }
                 fileEditor.writeFile("/src/System Data/"+customer.getId()+"/" + toAccountType + ".txt", token);
+
             }
 //            fileEditor.writeFile("/src/System Data/" + customer.getId() + "/saving.txt", new String[]{newSavAct.getId(), ""+amount, currencySelect.getSelectedItem().toString()});
         }

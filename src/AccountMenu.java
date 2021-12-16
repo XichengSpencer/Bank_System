@@ -4,6 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class AccountMenu implements ActionListener {
 
@@ -115,7 +117,7 @@ public class AccountMenu implements ActionListener {
                 return;
             }
             //write metadata
-            fileEditor.writeFile("/src/System Data/metadata.txt",new String[]{"createSav"});
+            fileEditor.writeFile("/src/metadata.txt",new String[]{new SimpleDateFormat("MM/dd/yyyy").format(new Date()),"createSav"});
 
             fileEditor.writeFile("/src/System Data/" + customer.getId() + "/saving.txt", new String[]{newSavAct.getId(), ""+amount, currencySelect.getSelectedItem().toString()});
         }
@@ -140,7 +142,7 @@ public class AccountMenu implements ActionListener {
                 warningLabel.setText("Already have one");
                 return;
             }
-            fileEditor.writeFile("/src/System Data/metadata.txt",new String[]{"createChk"});
+            fileEditor.writeFile("/src/metadata.txt",new String[]{new SimpleDateFormat("MM/dd/yyyy").format(new Date()),"createChk"});
             fileEditor.writeFile("/src/System Data/" + customer.getId() + "/checking.txt", new String[]{newSavAct.getId(), ""+amount, currencySelect.getSelectedItem().toString()});
         }
         // create a security account
