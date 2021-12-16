@@ -16,6 +16,9 @@ public class AccountSummaryMenu implements ActionListener {
     private JLabel sUSD = new JLabel();
     private JLabel sRMB = new JLabel();
     private JLabel sGBP = new JLabel();
+    private JLabel securityUSD = new JLabel();
+    private JLabel securityRMB = new JLabel();
+    private JLabel securityGBP = new JLabel();
 
     private JButton logOutButton;
     private JButton returnButton;
@@ -60,6 +63,10 @@ public class AccountSummaryMenu implements ActionListener {
         cRMB.setBounds(160, 130, 80, 20);
         cGBP.setBounds(160, 170, 80, 20);
 
+        securityUSD.setBounds(250, 90, 80, 20);
+        securityRMB.setBounds(250, 130, 80, 20);
+        securityGBP.setBounds(250, 170, 80, 20);
+
         returnButton.setBounds(20,230,80,25);
         logOutButton.setBounds(120,230,80,25);
 
@@ -90,12 +97,12 @@ public class AccountSummaryMenu implements ActionListener {
 //        sRMB.setText("0.00");
 //        sGBP.setText("0.00");
 //        cUSD.setText("0.00");
-//        cRMB.setText("0.00");
-//        cGBP.setText("0.00");
+        securityRMB.setText("0.00");
+        securityGBP.setText("0.00");
         HashMap<String, Account> accountList = customer.getAccountList();
         for (String type : accountList.keySet()) {
+            HashMap<String, Double> amountList = accountList.get(type).getTotalAmount();
             if (type.equals("saving")) {
-                HashMap<String, Double> amountList = accountList.get(type).getTotalAmount();
                 for (String currency : amountList.keySet()) {
                     if (currency.equals("USD")) {
                         sUSD.setText(""+amountList.get(currency));
@@ -106,7 +113,6 @@ public class AccountSummaryMenu implements ActionListener {
                     }
                 }
             } else if (type.equals("checking")) {
-                HashMap<String, Double> amountList = accountList.get(type).getTotalAmount();
                 for (String currency : amountList.keySet()) {
                     if (currency.equals("USD")) {
                         cUSD.setText(""+amountList.get(currency));
@@ -116,6 +122,10 @@ public class AccountSummaryMenu implements ActionListener {
                         cGBP.setText(""+amountList.get(currency));
                     }
                 }
+            } else if (type.equals("security")) {
+                double amountInAccout = accountList.get(type).getTotalAmount().get("USD");
+                double stockValue;
+                securityUSD.setText("" + amountInAccout);
             }
         }
         frame.add(sUSD);
@@ -124,7 +134,9 @@ public class AccountSummaryMenu implements ActionListener {
         frame.add(cUSD);
         frame.add(cRMB);
         frame.add(cGBP);
-
+        frame.add(securityUSD);
+        frame.add(securityRMB);
+        frame.add(securityGBP);
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(400, 300);
