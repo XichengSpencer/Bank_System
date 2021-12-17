@@ -20,5 +20,7 @@ public class Main {
         //test for meta
         //fileEditor.writeMeta("/src/System Data/metadata.txt",new String[]{"0"});
         //String date = new SimpleDateFormat("MM/dd/yyyy").format(new Date());
+        //test exist function
+        //System.out.println(fileEditor.exist("/src/ab.txt"));
     }
 }

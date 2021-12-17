@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -67,7 +68,10 @@ public class Report implements ActionListener {
 
     }
     private void dailyReport(String date) {
-
+        String temp = date.replace("/","_");
+        if(new File("/src/System Data/Daily report/"+temp+"/report.txt").exists()){
+            message.setText("report already exist");
+        }else {
         List<String[]> list = new ArrayList<String[]>();
         list.add(new String[]{"Current saving interest followed by loan interest rate:"});
         list.addAll(fileEditor.fileRead(interestPath));
@@ -85,8 +89,8 @@ public class Report implements ActionListener {
 
         list.addAll(readMeta(date));
 
-        date = date.replace("/","_");
-        fileEditor.listWrite("/src/System Data/Daily report/"+date+"/","report.txt",list);
+        fileEditor.listWrite("/src/System Data/Daily report/" + temp + "/", "report.txt", list);
+        }
     }
 
     private List<String []> readMeta(String Date) {
@@ -192,6 +196,7 @@ public class Report implements ActionListener {
             result.add(new String[]{"\n"});
             result.add(new String[]{"Total of GNP deposit: ", String.valueOf(deposit_gnp)});
             result.add(new String[]{"\n"});
+            /*
             result.add(new String[]{"Total number of transaction: ", String.valueOf(transaction_num)});
             result.add(new String[]{"\n"});
             result.add(new String[]{"Total of RMB transaction: ", String.valueOf(transaction_rmb)});
@@ -200,6 +205,7 @@ public class Report implements ActionListener {
             result.add(new String[]{"\n"});
             result.add(new String[]{"Total of GNP transaction: ", String.valueOf(transaction_gnp)});
             result.add(new String[]{"\n"});
+             */
             result.add(new String[]{"Total number of loan: ", String.valueOf(loan_num)});
             result.add(new String[]{"\n"});
             result.add(new String[]{"Total of RMB loan: ", String.valueOf(loan_rmb)});

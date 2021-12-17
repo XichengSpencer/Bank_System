@@ -154,5 +154,8 @@ public class fileEditor {
         }
 
     }
+    public static boolean exist(String path){
+        return new File(System.getProperty("user.dir")+path).exists();
+    }
 }
 

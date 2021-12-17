@@ -78,7 +78,11 @@ public class AdminPage implements ActionListener {
             changePrice(2);
         }
         if(e.getSource()==importButton) {
-           importData();
+           if(importData()){
+               infolabel.setText("import success");
+           }else {
+               infolabel.setText("import failed, data already exist");
+           }
         }
         if(e.getSource()==dailyReportButton) {
             new Report ();
@@ -105,19 +109,28 @@ public class AdminPage implements ActionListener {
 
 
 
-    private void importData() {
-        fileEditor.writeFile(stockPath,new String[]{"SONY","1131.96","USD"});
-        fileEditor.writeFile(stockPath,new String[]{"NIO","74.60","USD"});
-        fileEditor.writeFile(stockPath,new String[]{"APPL","190.73","USD"});
-
-        fileEditor.writeFile(ratePath,new String[]{"USD","1"});
-        fileEditor.writeFile(ratePath,new String[]{"RMB","0.16"});
-        fileEditor.writeFile(ratePath,new String[]{"GBP","1.33"});
-
-        //saving interest rate
-        fileEditor.writeFile(interestPath,new String[]{"0.02"});
-        //loan interest rate
-        fileEditor.writeFile(interestPath,new String[]{"0.10"});
+    private boolean importData() {
+        boolean success = false;
+        if(!fileEditor.exist(stockPath)) {
+            fileEditor.writeFile(stockPath, new String[]{"SONY", "1131.96", "USD"});
+            fileEditor.writeFile(stockPath, new String[]{"NIO", "74.60", "USD"});
+            fileEditor.writeFile(stockPath, new String[]{"APPL", "190.73", "USD"});
+            success=true;
+        }
+        if(!fileEditor.exist(ratePath)) {
+            fileEditor.writeFile(ratePath, new String[]{"USD", "1"});
+            fileEditor.writeFile(ratePath, new String[]{"RMB", "0.16"});
+            fileEditor.writeFile(ratePath, new String[]{"GBP", "1.33"});
+            success=true;
+        }
+        if(!fileEditor.exist(interestPath)) {
+            //saving interest rate
+            fileEditor.writeFile(interestPath, new String[]{"0.02"});
+            //loan interest rate
+            fileEditor.writeFile(interestPath, new String[]{"0.10"});
+            success=true;
+        }
+        return success;
     }
 
     private void changePrice(int numType) {
