@@ -58,3 +58,9 @@ an initializer for the entire system.
 
 Manager.java
 A class for manager  as a subclass of user.
+
+login.txt
+user account information record
+
+metadata.txt
+System record for all account registration activities.
