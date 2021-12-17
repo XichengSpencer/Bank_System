@@ -79,7 +79,6 @@ public class UserPage extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource()==accountSummaryButton) {
-//            frame.dispose();
             frame.setVisible(false);
             AccountSummaryMenu accountSummaryMenu = new AccountSummaryMenu(username, frame);
         }
@@ -96,14 +95,12 @@ public class UserPage extends JFrame implements ActionListener {
             DepositMenu depositMenu = new DepositMenu(username, frame);
         }
         if(e.getSource()==loanButton) {
-            //TODO  loan
             frame.setVisible(false);
             LoanMenu loanMenu = new LoanMenu(username,frame);
         }
         if(e.getSource()==stockButton) {
-            //TODO stock
-
-            frame.dispose();
+            frame.setVisible(false);
+            StockMenu stockMenu = new StockMenu(username, frame);
         }
         if (e.getSource() == logButton) {
             frame.dispose();
@@ -114,7 +111,6 @@ public class UserPage extends JFrame implements ActionListener {
             WithdrawMenu withdrawMenu = new WithdrawMenu(username, frame);
         }
         if(e.getSource()==logOutButton) {
-            //TODO
             frame.dispose();
             new Login(new LoginData());
         }
