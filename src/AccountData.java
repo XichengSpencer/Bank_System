@@ -47,16 +47,16 @@ public class AccountData {
                 }
                 list.put("checking", cAccount);
             }
-            File stockAccount = new File(accountPath + "/stock.txt");
+            File stockAccount = new File(accountPath + "/security.txt");
             Account stAccount = new Account("stock", customer);
             if (stockAccount.length() != 0) {
-                List<String[]> accountList = fileEditor.fileRead("/src/System Data/"+customer.getId()+"/stock.txt");
+                List<String[]> accountList = fileEditor.fileRead("/src/System Data/"+customer.getId()+"/security.txt");
                 for(String[] token :accountList){
                     String accountNumber = token[0];
                     stAccount.setId(accountNumber);
                     stAccount.addAmount(token[2], Double.valueOf(token[1]));
                 }
-                list.put("Stock", stAccount);
+                list.put("security", stAccount);
             }
         }
         return list;
@@ -89,9 +89,9 @@ public class AccountData {
                 }
             }
         } else {
-            File stockAccount = new File(accountPath + "/stock.txt");
+            File stockAccount = new File(accountPath + "/security.txt");
             if (stockAccount.length() != 0) {
-                List<String[]> accountList = fileEditor.fileRead("/src/System Data/"+customer.getId()+"/stock.txt");
+                List<String[]> accountList = fileEditor.fileRead("/src/System Data/"+customer.getId()+"/security.txt");
                 for(String[] token :accountList){
                     account.addAmount(token[2], Double.valueOf(token[1]));
                 }

@@ -2,6 +2,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -12,7 +13,7 @@ public class TransactionData {
         return transactionData;
     }
 
-    public String doTransaction(Transaction transaction) throws IOException {
+    public String doTransaction(Transaction transaction, boolean hasFee) throws IOException {
         String msg = "";
         // change amount from customers
         String fromCustomerId = transaction.getFrom().getCustomer().getId();
@@ -40,7 +41,12 @@ public class TransactionData {
                         if (token[2].equals(transaction.getFromCurrency())) {
                             // choose the same currency
                             double amount = Double.valueOf(token[1]);
-                            amount -= transaction.getAmount();
+                            if (hasFee) {
+                                amount -= transaction.getAmount() * 1.05;
+                            } else {
+                                amount -= transaction.getAmount();
+                            }
+
                             token[1] = ""+amount;
                         }
                         fileEditor.writeFile("/src/System Data/"+fromCustomerId+"/saving.txt", token);
@@ -60,7 +66,11 @@ public class TransactionData {
                         if (token[2].equals(transaction.getFromCurrency())) { // the same currency with fromAccount
                             // choose the same currency
                             double amount = Double.valueOf(token[1]);
-                            amount -= transaction.getAmount();
+                            if (hasFee) {
+                                amount -= transaction.getAmount() * 1.05;
+                            } else {
+                                amount -= transaction.getAmount();
+                            }
                             token[1] = ""+amount;
                         }
                         fileEditor.writeFile("/src/System Data/"+fromCustomerId+"/checking.txt", token);
@@ -114,20 +124,42 @@ public class TransactionData {
                         fileEditor.writeFile("/src/System Data/"+toCustomerId+"/checking.txt", token);
                     }
                 }
+            } else if (transaction.getTo().getAccountType().equals("security")) {
+                File checkingAccount = new File(toPath + "/security.txt");
+                if (checkingAccount.length() != 0) {
+                    List<String[]> accountList = fileEditor.fileRead("/src/System Data/"+toCustomerId+"/security.txt");
+                    // empty file for update
+                    FileWriter fileWriter = new FileWriter(checkingAccount);
+                    fileWriter.write("");
+                    fileWriter.flush();
+                    fileWriter.close();
+
+                    for(String[] token :accountList){
+                        if (token[2].equals(transaction.getFromCurrency())) { // the same currency with fromAccount
+                            // choose the same currency
+                            double amount = Double.valueOf(token[1]);
+                            amount += transaction.getAmount();
+                            token[1] = ""+amount;
+                        }
+                        fileEditor.writeFile("/src/System Data/"+toCustomerId+"/security.txt", token);
+                    }
+                }
             }
         }
 
         // log in file
-        String transactionPath = System.getProperty("user.dir") + "/src/transaction.txt";
-        File transactionFile = new File(transactionPath);
-        if (!transactionFile.exists()) {
-            try {
-                transactionFile.createNewFile();
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
-        }
-        fileEditor.writeFile("/src/transaction.txt", new String[]{transaction.getTransferTime().toString(), "Transfer", transaction.getFrom().getCustomer().getName(), transaction.getFrom().getAccountType(), transaction.getTo().getCustomer().getName(), transaction.getTo().getAccountType(), ""+transaction.getAmount(), transaction.getFromCurrency()});
+//        String transactionPath = System.getProperty("user.dir") + "/src/transaction.txt";
+//        File transactionFile = new File(transactionPath);
+//        if (!transactionFile.exists()) {
+//            try {
+//                transactionFile.createNewFile();
+//            } catch (IOException ex) {
+//                ex.printStackTrace();
+//            }
+//        }
+//        fileEditor.writeFile("/src/transaction.txt", new String[]{transaction.getTransferTime().toString(), "Transfer", transaction.getFrom().getCustomer().getName(), transaction.getFrom().getAccountType(), transaction.getTo().getCustomer().getName(), transaction.getTo().getAccountType(), ""+transaction.getAmount(), transaction.getFromCurrency()});
+//        return msg;
+        logTransaction("Transfer", transaction);
         return msg;
     }
 
@@ -150,5 +182,31 @@ public class TransactionData {
             }
         }
         return customerTransaction;
+    }
+
+    public void logTransaction(String operation, Transaction transaction) {
+        String transactionPath = System.getProperty("user.dir") + "/src/transaction.txt";
+        File transactionFile = new File(transactionPath);
+        if (!transactionFile.exists()) {
+            try {
+                transactionFile.createNewFile();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
+        fileEditor.writeFile("/src/transaction.txt", new String[]{transaction.getTransferTime().toString(), operation, transaction.getFrom().getCustomer().getName(), transaction.getFrom().getAccountType(), transaction.getTo().getCustomer().getName(), transaction.getTo().getAccountType(), ""+transaction.getAmount(), transaction.getFromCurrency()});
+    }
+
+    public void logTransaction(String operation, String fromCustomer, String fromAccount, String toCustomer, String toAccount, double amount, String currency) {
+        String transactionPath = System.getProperty("user.dir") + "/src/transaction.txt";
+        File transactionFile = new File(transactionPath);
+        if (!transactionFile.exists()) {
+            try {
+                transactionFile.createNewFile();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
+        fileEditor.writeFile("/src/transaction.txt", new String[]{new Date().toString(), operation, fromCustomer, fromAccount, toCustomer, toAccount, "" + amount, currency});
     }
 }
