@@ -6,10 +6,17 @@ import java.util.List;
 
 public class LoanData {
     public static void updateLoan(Customer customer, String account, double loan, String currency){
-        List<String[]> amountList = fileEditor.fileRead("/src/System Data/"+ customer.getId() + "/loan.txt");
-        FileWriter fileWriter = null;
         String accountPath = System.getProperty("user.dir") + "/src/System Data/" + customer.getId() + "/loan.txt";
         File accountFile = new File(accountPath);
+        if (!accountFile.exists()) {
+            try {
+                accountFile.createNewFile();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
+        List<String[]> amountList = fileEditor.fileRead("/src/System Data/"+ customer.getId() + "/loan.txt");
+        FileWriter fileWriter = null;
         try {
             fileWriter = new FileWriter(accountFile);
             fileWriter.write("");

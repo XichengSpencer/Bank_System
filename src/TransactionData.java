@@ -177,7 +177,7 @@ public class TransactionData {
         List<String[]> allTransactions = getAllTransactions();
         List<String[]> customerTransaction = new ArrayList<>();
         for (String[] token : allTransactions) {
-            if (token[2].equals(userName)) {
+            if (token[2].equals(userName)||token[4].equals(userName)) {
                 customerTransaction.add(token);
             }
         }

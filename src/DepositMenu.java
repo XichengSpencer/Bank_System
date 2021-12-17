@@ -163,6 +163,7 @@ public class DepositMenu implements ActionListener {
                 ex.printStackTrace();
             }
 
+            boolean flag = false;
             for(String[] token :amountList){
                 if (token[2].equals(currencySelect.getSelectedItem().toString())) { // find the correct currency
                     // choose the same currency
@@ -170,9 +171,13 @@ public class DepositMenu implements ActionListener {
                     //fileEditor.writeFile("/src/metadata.txt",new String[]{new SimpleDateFormat("MM/dd/yyyy").format(new Date()),"deposit"+currencySelect.getSelectedItem().toString(),amount1+""});
                     amount1 += Double.valueOf(depositInput.getText());
                     token[1] = ""+amount1;
+                    flag = true;
                 }
                 fileEditor.writeFile("/src/System Data/"+customer.getId()+"/" + toAccountType + ".txt", token);
 
+            }
+            if (!flag){
+                fileEditor.writeFile("/src/System Data/"+customer.getId()+"/" + toAccountType + ".txt", new String[]{account.getId(), ""+Double.valueOf(depositInput.getText()), currencySelect.getSelectedItem().toString()});
             }
             // log the transaction
             TransactionData.getInstance().logTransaction("deposit", customer.getName(), "cash", customer.getName(), toAccountType, Double.valueOf(depositInput.getText()), currencySelect.getSelectedItem().toString());

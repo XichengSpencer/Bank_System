@@ -132,7 +132,6 @@ public class StockMenu implements ActionListener {
 
         if (StockData.getSavingBalace(customer) < 2500.0){
             buyWarningLabel.setText("You can't buy since you don't have 2500 in saving account");
-            buyWarningLabel.setText(""+StockData.getSavingBalace(customer));
         } else {
             frame.add(buyButton);
         }
