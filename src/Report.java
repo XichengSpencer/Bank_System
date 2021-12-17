@@ -65,11 +65,13 @@ public class Report implements ActionListener {
             String date = text.getText();
             if(date.length()==0){
                 date = sdf.format(new Date());
-                dailyReport(date);
-                message.setText("report generated");
+                if(dailyReport(date)) {
+                    message.setText("report generated");
+                }
             }else if(fileEditor.isValid(date)) {
-                dailyReport(date);
-                message.setText("report generated");
+                if(dailyReport(date)) {
+                    message.setText("report generated");
+                }
             }else{
                 message.setText("false format");
             }
@@ -84,10 +86,12 @@ public class Report implements ActionListener {
         }
 
     }
-    private void dailyReport(String date) {
+    private boolean dailyReport(String date) {
         String temp = date.replace("/","_");
-        if(new File("/src/System Data/Daily report/"+temp+"/report.txt").exists()){
+        //add
+        if(new File(System.getProperty("user.dir")+"/src/System Data/Daily report/"+temp+"/report.txt").exists()){
             message.setText("report already exist");
+            return false;
         }else {
             List<String[]> list = new ArrayList<String[]>();
             list.add(new String[]{"Current saving interest followed by loan interest rate:"});
@@ -110,6 +114,7 @@ public class Report implements ActionListener {
 
 
             fileEditor.listWrite("/src/System Data/Daily report/" + temp + "/", "report.txt", list);
+            return true;
         }
     }
 
@@ -174,8 +179,8 @@ public class Report implements ActionListener {
                         case "loan":
 
                             double value = Double.valueOf(s[6]);
-
-                            if (s[4].length()==0){
+                            //change
+                            if (s[3].length()==0){
                                 loan_pay++;
                             }else {
                                 loan_receive++;
