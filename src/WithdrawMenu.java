@@ -144,6 +144,8 @@ public class WithdrawMenu implements ActionListener {
                 return;
             }
 
+            Account account = new Account(toAccountType, customer, currencySelect.getSelectedItem().toString(), amount);
+            customer.addAccount(toAccountType, account);
             String accountPath = System.getProperty("user.dir") + "/src/System Data/" + customer.getId() + "/" + toAccountType + ".txt";
             File accountFile = new File(accountPath);
             if (!accountFile.exists()) {

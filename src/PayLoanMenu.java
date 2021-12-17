@@ -34,15 +34,16 @@ public class PayLoanMenu implements ActionListener {
         JLabel GBPLabel = new JLabel("GBP: ");
 
         loanStatus = LoanData.getAllLoan(customer);
-        JLabel RMBLoanLabel = new JLabel(""+loanStatus.get("RMB"));
-        JLabel USDLoanLabel = new JLabel(""+loanStatus.get("USD"));
-        JLabel GBPLoanLabel = new JLabel(""+loanStatus.get("GBP"));
+        JLabel RMBLoanLabel,USDLoanLabel,GBPLoanLabel;
         if (LoanData.getAllLoan(customer) == null){
             RMBLoanLabel = new JLabel("0");
             USDLoanLabel = new JLabel("0");
             GBPLoanLabel = new JLabel("0");
+        } else {
+            RMBLoanLabel = new JLabel("" + loanStatus.get("RMB"));
+            USDLoanLabel = new JLabel("" + loanStatus.get("USD"));
+            GBPLoanLabel = new JLabel("" + loanStatus.get("GBP"));
         }
-
 
         JLabel currencyLabel = new JLabel("Currency: ");
         currencySelect = new JComboBox<>();
