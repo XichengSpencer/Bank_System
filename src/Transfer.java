@@ -9,9 +9,9 @@ public class Transfer extends Transaction {
     @Override
     public String execute() throws IOException {
         String msg = "";
+        double amount = getFrom().getTotalAmount().get(getFromCurrency());
         // too much
-        if (getAmount() > getFrom().getTotalAmount().get(getFromCurrency())) {
-            double amount = getFrom().getTotalAmount().get(getFrom().getAccountType());
+        if (getAmount() > amount) {
             msg = "Sorry you only have" + amount;
         }
         // deposit
@@ -20,7 +20,7 @@ public class Transfer extends Transaction {
         } else {
             if (!getTo().getCustomer().equals(getFrom().getCustomer())) {
                 // transfer between different user, will charge fee
-                if (getFrom().getTotalAmount().get(getFromCurrency()) < getAmount() * 1.05) {
+                if (amount < getAmount() * 1.05) {
                     msg = "Not enough money to pay for the transaction fee.";
                 } else {
                     AccountData accountData = AccountData.getInstance();

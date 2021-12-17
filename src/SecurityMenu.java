@@ -4,6 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class SecurityMenu implements ActionListener {
     private JTextField amountInput;
@@ -123,6 +125,7 @@ public class SecurityMenu implements ActionListener {
                 warningLabel.setText("Already have one");
                 return;
             }
+            fileEditor.writeFile("/src/metadata.txt",new String[]{new SimpleDateFormat("MM/dd/yyyy").format(new Date()),"CreateSec"});
             fileEditor.writeFile("/src/System Data/" + customer.getId() + "/security.txt", new String[]{securityAccount.getId(), ""+securityAccount.getTotalAmount().get("USD"), currencySelect.getSelectedItem().toString()});
 
             // Do transfer
@@ -142,7 +145,6 @@ public class SecurityMenu implements ActionListener {
             Transfer transfer = new Transfer(savingAccount, securityAccount, amount, currencySelect.getSelectedItem().toString());
             try {
                 transfer.execute();
-                TransactionData.getInstance().logTransaction("Transfer", transfer);
             } catch (IOException ex) {
                 ex.printStackTrace();
             }

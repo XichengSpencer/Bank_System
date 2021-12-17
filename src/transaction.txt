@@ -41,3 +41,4 @@ Thu Dec 16 22:39:38 EST 2021,stock,bank,,202139710501579101,security,941.73,USD
 Thu Dec 16 22:39:39 EST 2021,stock,zxcv,security,bank,,941.73,USD
 Thu Dec 16 22:39:40 EST 2021,stock,bank,,202139710501579101,security,941.73,USD
 Thu Dec 16 22:39:41 EST 2021,stock,zxcv,security,bank,,941.73,USD
+Thu Dec 16 22:55:04 EST 2021,transfer,abc,checking,abc,saving,10.0,RMB
