@@ -6,6 +6,7 @@ import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -72,25 +73,33 @@ public class Report implements ActionListener {
         if(new File("/src/System Data/Daily report/"+temp+"/report.txt").exists()){
             message.setText("report already exist");
         }else {
-        List<String[]> list = new ArrayList<String[]>();
-        list.add(new String[]{"Current saving interest followed by loan interest rate:"});
-        list.addAll(fileEditor.fileRead(interestPath));
-        list.add(new String[]{"\n"});
+            List<String[]> list = new ArrayList<String[]>();
+            list.add(new String[]{"Current saving interest followed by loan interest rate:"});
+            list.addAll(fileEditor.fileRead(interestPath));
+            list.add(new String[]{"\n"});
 
-        list.add(new String[]{"Current exchange rate:"});
-        List<String[]> exchangelist = fileEditor.fileRead(ratePath);
-        list.addAll(exchangelist);
-        list.add(new String[]{"\n"});
+            list.add(new String[]{"Current exchange rate:"});
+            List<String[]> exchangelist = fileEditor.fileRead(ratePath);
+            list.addAll(exchangelist);
+            list.add(new String[]{"\n"});
 
 
-        list.add(new String[]{"Current stock price:"});
-        List<String[]> stocklist =fileEditor.fileRead(stockPath);
-        list.addAll(stocklist);
+            list.add(new String[]{"Current stock price:"});
+            List<String[]> stocklist =fileEditor.fileRead(stockPath);
+            list.addAll(stocklist);
 
-        list.addAll(readMeta(date));
+            list.addAll(readTransaction());
 
-        fileEditor.listWrite("/src/System Data/Daily report/" + temp + "/", "report.txt", list);
+            list.addAll(readMeta(date));
+
+            fileEditor.listWrite("/src/System Data/Daily report/" + temp + "/", "report.txt", list);
         }
+    }
+
+    private List<? extends String[]> readTransaction() {
+        List<String[]> list =  fileEditor.fileRead("src/transaction.txt");
+        //TODO
+        return list;
     }
 
     private List<String []> readMeta(String Date) {

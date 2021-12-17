@@ -158,7 +158,7 @@ public class DepositMenu implements ActionListener {
                 if (token[2].equals(currencySelect.getSelectedItem().toString())) { // find the correct currency
                     // choose the same currency
                     double amount1 = Double.valueOf(token[1]);
-                    fileEditor.writeFile("/src/metadata.txt",new String[]{new SimpleDateFormat("MM/dd/yyyy").format(new Date()),"deposit"+currencySelect.getSelectedItem().toString(),amount1+""});
+                    //fileEditor.writeFile("/src/metadata.txt",new String[]{new SimpleDateFormat("MM/dd/yyyy").format(new Date()),"deposit"+currencySelect.getSelectedItem().toString(),amount1+""});
                     amount1 += Double.valueOf(depositInput.getText());
                     token[1] = ""+amount1;
                 }
