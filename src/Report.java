@@ -15,6 +15,7 @@ public class Report implements ActionListener {
     private JButton generate;
     private JButton back;
     private JButton resetButton;
+    private JButton view;
     private JTextField text;
     private JLabel message;
     private String stockPath = "/src/System Data/publicStock.txt";
@@ -31,25 +32,28 @@ public class Report implements ActionListener {
         back = new JButton("Back");
         resetButton = new JButton("Reset");
         text = new JTextField("Enter mm/dd/yyyy");
-
+        view = new JButton("View Daily Report");
         text.setBounds(50,10,200,20);
         generate.setBounds(20,40,100,20);
         resetButton.setBounds(125,40,100,20);
         back.setBounds(230,40,100,20);
         message.setBounds(20,70,250,20);
+        view.setBounds(20,100,150,20);
 
         resetButton.addActionListener(this);
         generate.addActionListener(this);
         back.addActionListener(this);
+        view.addActionListener(this);
 
         frame.add(resetButton);
         frame.add(generate);
         frame.add(back);
         frame.add(text);
         frame.add(message);
+        frame.add(view);
 
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frame.setSize(350, 200);
+        frame.setSize(350, 250);
         frame.setLayout(null);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
@@ -74,6 +78,9 @@ public class Report implements ActionListener {
             frame.dispose();
         }if(e.getSource()==resetButton) {
             text.setText("");
+        }
+        if (e.getSource() == view){
+            new ReportPresent();
         }
 
     }
