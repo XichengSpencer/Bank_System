@@ -18,13 +18,13 @@ run:
 Javac Main.java
 Java Main
 ````
-###Manager view:
+Manager view:
 
 UserName: Admin
 
 Password: 00000
 
-###Customer view:
+Customer view:
 
 UserName: abc
 
