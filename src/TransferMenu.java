@@ -45,7 +45,7 @@ public class TransferMenu implements ActionListener {
         userLabel.setFont(new Font(null,Font.ITALIC,20));
         message.setBounds(30,30,270,12);
         message.setFont(new Font(null,Font.BOLD,10));
-        warningLabel.setBounds(20, 220, 300, 25);
+        warningLabel.setBounds(20, 200, 300, 25);
 //        warningLabel.setFont(new Font(null, Font.BOLD, 20));
         accountNumber.setBounds(20, 70, 170, 25);
         accountInput.setBounds(20, 110, 170, 25);
@@ -151,7 +151,7 @@ public class TransferMenu implements ActionListener {
             String toAccountType = accountInput.getSelectedItem().toString();
             HashMap<String, Account> accountList = fromCustomer.getAccountList();
             for (String type : accountList.keySet()) {
-                if (accountList.get(type).equals(fromAccountType)) { // find the account
+                if (type.equals(fromAccountType)) { // find the account
                     fromAccountNumber = accountList.get(type).getId();
                     break;
                 }
@@ -163,7 +163,7 @@ public class TransferMenu implements ActionListener {
             for (Customer customer1 : customers) {
                 HashMap<String, Account> accountList1 = customer1.getAccountList();
                 for (String type : accountList1.keySet()) {
-                    if (accountList1.get(type).equals(toAccountType)) { // find the account
+                    if (type.equals(toAccountType)) { // find the account
                         toCustomer = customerData.selectCustomer(customer1.getName());
                         toAccountNumber = accountList1.get(type).getId();
                         isFund = true;
