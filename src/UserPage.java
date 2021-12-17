@@ -16,6 +16,7 @@ public class UserPage extends JFrame implements ActionListener {
     private JButton logButton;
     private JButton stockButton;
     private String username;
+    private JButton withDrawButton;
 
     private  JFrame frame;
 
@@ -31,6 +32,7 @@ public class UserPage extends JFrame implements ActionListener {
         stockButton = new JButton("Stock");
         logButton = new JButton("View Transactions");
         logOutButton = new JButton("Log Out");
+        withDrawButton = new JButton("Withdraw");
 
         userLabel.setBounds(200,10,180,45);
         userLabel.setFont(new Font(null,Font.ITALIC,35));
@@ -42,6 +44,7 @@ public class UserPage extends JFrame implements ActionListener {
         stockButton.setBounds(20,270,150,25);
         logButton.setBounds(20,310,150,25);
         logOutButton.setBounds(20,350,150,25);
+        withDrawButton.setBounds(200, 70, 150, 25);
 
         frame = new JFrame("UserPage");
         frame.add(userLabel);
@@ -53,6 +56,7 @@ public class UserPage extends JFrame implements ActionListener {
         frame.add(stockButton);
         frame.add(logButton);
         frame.add(logOutButton);
+        frame.add(withDrawButton);
 
         accountSummaryButton.addActionListener(this);
         openAccountButton.addActionListener(this);
@@ -62,6 +66,7 @@ public class UserPage extends JFrame implements ActionListener {
         stockButton.addActionListener(this);
         logButton.addActionListener(this);
         logOutButton.addActionListener(this);
+        withDrawButton.addActionListener(this);
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(420, 420);
@@ -103,6 +108,10 @@ public class UserPage extends JFrame implements ActionListener {
         if (e.getSource() == logButton) {
             frame.dispose();
             TransactionsMenu transactionsMenu = new TransactionsMenu(username, frame);
+        }
+        if (withDrawButton.equals(e.getSource())){
+            frame.setVisible(false);
+            WithdrawMenu withdrawMenu = new WithdrawMenu(username, frame);
         }
         if(e.getSource()==logOutButton) {
             //TODO
