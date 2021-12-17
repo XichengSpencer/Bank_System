@@ -139,7 +139,11 @@ public class TransferMenu implements ActionListener {
                 return;
             }
             if (amountInput.getText().length() == 0){
-                warningLabel.setText("Please input amount to transfer");
+                warningLabel.setText("Please input amount to transfer！");
+                return;
+            }
+            if(accountNumberInput.getText().length() == 0){
+                warningLabel.setText("Please input account number!");
                 return;
             }
             CustomerData customerData = CustomerData.getInstance();
@@ -183,7 +187,8 @@ public class TransferMenu implements ActionListener {
 
             Transfer transfer = new Transfer(from, to, amount, fromCurrency);
             try {
-                transfer.execute();
+                String result = transfer.execute();
+                warningLabel.setText(result);
             } catch (IOException ex) {
                 ex.printStackTrace();
             }

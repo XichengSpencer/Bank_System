@@ -28,6 +28,7 @@ public class Transfer extends Transaction {
                     // TODO transaction Data:
                     TransactionData transactionData = TransactionData.getInstance();
                     transactionData.doTransaction(this, true);
+                    msg = "Transfer Complete!";
                 }
             } else {
                 // transfer between same user, won't charge fee
@@ -36,6 +37,7 @@ public class Transfer extends Transaction {
                 // TODO transaction Data:
                 TransactionData transactionData = TransactionData.getInstance();
                 transactionData.doTransaction(this, false);
+                msg = "Transfer Complete!";
             }
         }
         return msg;
