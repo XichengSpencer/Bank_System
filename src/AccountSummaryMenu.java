@@ -159,6 +159,7 @@ public class AccountSummaryMenu implements ActionListener {
         }
         if (logOutButton.equals(e.getSource())) {
             frame.dispose();
+            new Login(new LoginData());
         }
     }
 }

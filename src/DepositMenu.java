@@ -92,7 +92,9 @@ public class DepositMenu implements ActionListener {
 //        HashMap<String, Account> accountList =  accountData.getAccountList(customer);
         HashMap<String, Account> accountList = customer.getAccountList();
         for (Account account : accountList.values()) {
-            accountSelect.addItem(account.getId());
+            if (account.getAccountType().equals("checking")||account.getAccountType().equals("saving")) {
+                accountSelect.addItem(account.getAccountType());
+            }
         }
         frame.add(accountSelect);
 
@@ -128,14 +130,8 @@ public class DepositMenu implements ActionListener {
             CustomerData customerData = CustomerData.getInstance();
             Customer customer = customerData.selectCustomer(username);
             double amount = Double.valueOf(depositInput.getText());
-            String toAccountType = "";
-            HashMap<String, Account> accountList = customer.getAccountList();
-            for (String type : accountList.keySet()) {
-                if (accountList.get(type).getId().equals(accountSelect.getSelectedItem().toString())) { // find the account
-                    toAccountType = type;
-                    break;
-                }
-            }
+            String toAccountType = accountSelect.getSelectedItem().toString();
+
 
             if (currencySelect.getSelectedItem().toString().equals("--Select Currency--")){
                 warningLabel.setText("Please select currency!");
@@ -180,6 +176,7 @@ public class DepositMenu implements ActionListener {
             }
             // log the transaction
             TransactionData.getInstance().logTransaction("deposit", customer.getName(), "cash", customer.getName(), toAccountType, Double.valueOf(depositInput.getText()), currencySelect.getSelectedItem().toString());
+            warningLabel.setText("Deposit complete!");
         }
 
         // go back to previous page
