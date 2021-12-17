@@ -96,6 +96,14 @@ public class AccountMenu implements ActionListener {
 
         // open a saving account
         if (savingButton.equals(e.getSource())) {
+            if(depositInput.getText().length() == 0){
+                warningLabel.setText("Please input deposit!");
+                return;
+            }
+            if (currencySelect.getSelectedItem().equals("--Select Currency--")){
+                warningLabel.setText("Please select currency!");
+                return;
+            }
             CustomerData customerData = CustomerData.getInstance();
             Customer customer = customerData.selectCustomer(username);
             double amount = Double.valueOf(depositInput.getText()) - 5;
@@ -120,15 +128,23 @@ public class AccountMenu implements ActionListener {
             fileEditor.writeFile("/src/metadata.txt",new String[]{new SimpleDateFormat("MM/dd/yyyy").format(new Date()),"createSav"});
 
             fileEditor.writeFile("/src/System Data/" + customer.getId() + "/saving.txt", new String[]{newSavAct.getId(), ""+amount, currencySelect.getSelectedItem().toString()});
+            warningLabel.setText("A saving account has been opened");
         }
         // open a checking account
         if (checkingButton.equals(e.getSource())) {
+            if(depositInput.getText().length() == 0){
+                warningLabel.setText("Please input deposit!");
+                return;
+            }
+            if (currencySelect.getSelectedItem().equals("--Select Currency--")){
+                warningLabel.setText("Please select currency!");
+                return;
+            }
             CustomerData customerData = CustomerData.getInstance();
             Customer customer = customerData.selectCustomer(username);
             double amount = Double.valueOf(depositInput.getText()) - 5;
-            // TODO change to checkingAccount type
             Account newSavAct = new Account(customer, amount);
-            customer.addAccount("saving", newSavAct);
+            customer.addAccount("checking", newSavAct);
             // update the file or add the file under the folder
             String accountPath = System.getProperty("user.dir") + "/src/System Data/" + customer.getId() + "/checking.txt";
             File accountFile = new File(accountPath);
@@ -144,9 +160,18 @@ public class AccountMenu implements ActionListener {
             }
             fileEditor.writeFile("/src/metadata.txt",new String[]{new SimpleDateFormat("MM/dd/yyyy").format(new Date()),"createChk"});
             fileEditor.writeFile("/src/System Data/" + customer.getId() + "/checking.txt", new String[]{newSavAct.getId(), ""+amount, currencySelect.getSelectedItem().toString()});
+            warningLabel.setText("A checking account has been opened");
         }
         // create a security account
         if (securityButton.equals(e.getSource())) {
+            if(depositInput.getText().length() == 0){
+                warningLabel.setText("Please input deposit!");
+                return;
+            }
+            if (currencySelect.getSelectedItem().equals("--Select Currency--")){
+                warningLabel.setText("Please select currency!");
+                return;
+            }
             // make sure the amount in saving account is larger than 5000
             CustomerData customerData = CustomerData.getInstance();
             Customer customer = customerData.selectCustomer(username);
@@ -158,7 +183,7 @@ public class AccountMenu implements ActionListener {
                 warningLabel.setText("");
             }
             SecurityMenu securityMenu = new SecurityMenu(username, previous);
-
+            warningLabel.setText("A security account has been opened");
         }
         if (depositInput.equals(e.getSource())) {
             int deposit =Integer.parseInt(depositInput.getText());

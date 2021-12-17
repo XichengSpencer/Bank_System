@@ -115,6 +115,7 @@ public class WithdrawMenu implements ActionListener {
         if (withdrawButton.equals(e.getSource())){
             if (withdrawInput.getText().length() == 0){
                 warningLabel.setText("Please input amount!");
+                return;
             }
             double amount = Double.valueOf(withdrawInput.getText());
             String toAccountType = accountSelect.getSelectedItem().toString();

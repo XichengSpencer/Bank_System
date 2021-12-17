@@ -32,7 +32,7 @@ public class SecurityMenu implements ActionListener {
 
         userLabel.setBounds(200,10,130,20);
         userLabel.setFont(new Font(null,Font.ITALIC,20));
-        message.setBounds(150,30,270,12);
+        message.setBounds(30,30,270,12);
         message.setFont(new Font(null,Font.BOLD,10));
         warningLabel.setBounds(20, 210, 300, 25);
 //        warningLabel.setFont(new Font(null, Font.BOLD, 20));
@@ -89,6 +89,14 @@ public class SecurityMenu implements ActionListener {
         }
         // open account button
         if (OpenButton.equals(e.getSource())) {
+            if(amountInput.getText().length() == 0){
+                warningLabel.setText("Please input deposit!");
+                return;
+            }
+            if (currencySelect.getSelectedItem().equals("--Select Currency--")){
+                warningLabel.setText("Please select currency!");
+                return;
+            }
             // check greater than 1000
             int deposit =Integer.parseInt(amountInput.getText());
             if (deposit < 1000) {
@@ -138,6 +146,7 @@ public class SecurityMenu implements ActionListener {
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
+            warningLabel.setText("A security has been created!");
         }
 
         // go back to previous page
