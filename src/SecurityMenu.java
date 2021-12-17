@@ -93,7 +93,7 @@ public class SecurityMenu implements ActionListener {
                 warningLabel.setText("Please input deposit!");
                 return;
             }
-            if (currencySelect.getSelectedItem().equals("--Select Currency--")){
+            if (currencySelect.getSelectedItem().toString().equals("--Select Currency--")){
                 warningLabel.setText("Please select currency!");
                 return;
             }
