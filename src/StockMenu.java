@@ -130,8 +130,9 @@ public class StockMenu implements ActionListener {
         frame.add(shareSell);
         frame.add(sellWarningLabel);
 
-        if (StockData.getSavingBalace(customer) < 2500){
+        if (StockData.getSavingBalace(customer) < 2500.0){
             buyWarningLabel.setText("You can't buy since you don't have 2500 in saving account");
+            buyWarningLabel.setText(""+StockData.getSavingBalace(customer));
         } else {
             frame.add(buyButton);
         }
@@ -233,6 +234,7 @@ public class StockMenu implements ActionListener {
         }
         if (logOutButton.equals(e.getSource())) {
             frame.dispose();
+            new Login(new LoginData());
         }
         if (buyButton.equals(e.getSource())){
             if (shareBuy.getText().length() == 0){

@@ -91,7 +91,9 @@ public class WithdrawMenu implements ActionListener {
 //        HashMap<String, Account> accountList =  accountData.getAccountList(customer);
         HashMap<String, Account> accountList = customer.getAccountList();
         for (Account account : accountList.values()) {
-            accountSelect.addItem(account.getAccountType());
+            if (account.getAccountType().equals("saving")||account.getAccountType().equals("checking")) {
+                accountSelect.addItem(account.getAccountType());
+            }
         }
         frame.add(accountSelect);
 
@@ -111,6 +113,7 @@ public class WithdrawMenu implements ActionListener {
         }
         if (logOutButton.equals(e.getSource())) {
             frame.dispose();
+            new Login(new LoginData());
         }
         if (withdrawButton.equals(e.getSource())){
             if (withdrawInput.getText().length() == 0){
@@ -121,8 +124,8 @@ public class WithdrawMenu implements ActionListener {
             String toAccountType = accountSelect.getSelectedItem().toString();
             String currency = currencySelect.getSelectedItem().toString();
 
-            HashMap<String, String[]> accountlist = fileEditor.toHash("/src/System Data/" + customer.getId() + "/" + toAccountType + ".txt");
-            double accountBalance = Double.valueOf(accountlist.get(toAccountType)[0]);
+            List<String[]> accountlist = fileEditor.fileRead("/src/System Data/" + customer.getId() + "/" + toAccountType + ".txt");
+            double accountBalance = Double.valueOf(accountlist.get(0)[1]);
             if(accountBalance < amount){
                 warningLabel.setText("Insufficient balance！");
                 return;

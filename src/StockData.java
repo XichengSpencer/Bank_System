@@ -9,7 +9,7 @@ import java.util.Map;
 public class StockData {
     public static HashMap<String, Double> getStockInformation(){
         HashMap<String, Double> list = new HashMap<>();
-        HashMap<String, String[]> raw = fileEditor.toHash("/src/publicStock.txt");
+        HashMap<String, String[]> raw = fileEditor.toHash("/src/System Data/publicStock.txt");
         for (String key: raw.keySet()){
             list.put(key, Double.valueOf(raw.get(key)[0]));
         }
@@ -52,14 +52,14 @@ public class StockData {
 
         List<String[]> accounts = fileEditor.fileRead("/src/System Data/"+customer.getId()+"/saving.txt");
         if (accounts.size()==0){
-            return -1;
+            return -2;
         }
         for (String[] a : accounts){
-            if (a[2] == "USD"){
+            if (a[2].equals("USD")){
                 return Double.valueOf(a[1]);
             }
         }
-        return -1;
+        return -3;
     }
 
     public static void updateStock(Customer customer, String stockName, int share, double sharePrice){
