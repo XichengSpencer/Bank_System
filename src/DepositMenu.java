@@ -117,6 +117,14 @@ public class DepositMenu implements ActionListener {
         }
         // deposit button
         if (depositButton.equals(e.getSource())) {
+            if (depositInput.getText().length() == 0){
+                warningLabel.setText("Please input amount!");
+                return;
+            }
+            if (accountSelect.getSelectedItem().toString().equals("--Please Select--")){
+                warningLabel.setText("Please select account");
+                return;
+            }
             CustomerData customerData = CustomerData.getInstance();
             Customer customer = customerData.selectCustomer(username);
             double amount = Double.valueOf(depositInput.getText());
@@ -127,6 +135,11 @@ public class DepositMenu implements ActionListener {
                     toAccountType = type;
                     break;
                 }
+            }
+
+            if (currencySelect.getSelectedItem().toString().equals("--Select Currency--")){
+                warningLabel.setText("Please select currency!");
+                return;
             }
 
             Account account = new Account(toAccountType, customer, currencySelect.getSelectedItem().toString(), amount);

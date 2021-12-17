@@ -94,7 +94,9 @@ public class RequestLoanMenu implements ActionListener {
         AccountData accountData = AccountData.getInstance();
         HashMap<String, Account> accountList =  accountData.getAccountList(customer);
         for (Account account : accountList.values()) {
-            allAccount.addItem(account.getAccountType());
+            if (account.getAccountType().equals("saving")||account.getAccountType().equals("checking")) {
+                allAccount.addItem(account.getAccountType());
+            }
         }
         frame.add(allAccount);
 

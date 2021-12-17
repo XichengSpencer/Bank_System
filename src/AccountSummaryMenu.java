@@ -51,9 +51,9 @@ public class AccountSummaryMenu implements ActionListener {
         savingLabel.setBounds(70, 60, 80, 25);
         checkingLable.setBounds(160, 60, 80, 25);
         securityLable.setBounds(250, 60, 80, 25);
-        usdLable.setBounds(20, 90, 30, 20);
-        rmbLable.setBounds(20, 130, 30, 20);
-        gbpLable.setBounds(20, 170, 30, 20);
+        usdLable.setBounds(20, 90, 40, 20);
+        rmbLable.setBounds(20, 130, 40, 20);
+        gbpLable.setBounds(20, 170, 40, 20);
 
         sUSD.setBounds(70, 90, 80, 20);
         sRMB.setBounds(70, 130, 80, 20);
@@ -93,9 +93,12 @@ public class AccountSummaryMenu implements ActionListener {
         CustomerData customerData = CustomerData.getInstance();
         Customer customer = customerData.selectCustomer(userName);
         // get the account list of the customer
-//        sUSD.setText("0.00");
-//        sRMB.setText("0.00");
-//        sGBP.setText("0.00");
+        sUSD.setText("0.00");
+        sRMB.setText("0.00");
+        sGBP.setText("0.00");
+        cUSD.setText("0.00");
+        cRMB.setText("0.00");
+        cGBP.setText("0.00");
         securityUSD.setText("0.00");
         securityRMB.setText("0.00");
         securityGBP.setText("0.00");
