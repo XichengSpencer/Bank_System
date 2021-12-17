@@ -71,7 +71,7 @@ public class AdminPage implements ActionListener {
         frame.add(changeExchangeButton);
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(400, 420);
+        frame.setSize(400, 500);
         frame.setLayout(null);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);

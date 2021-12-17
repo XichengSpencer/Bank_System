@@ -16,3 +16,7 @@ Thu Dec 16 18:51:43 EST 2021,transfer,abc,saving,abc,security,100.0,USD
 Thu Dec 16 18:52:38 EST 2021,transfer,abc,saving,abc,security,1000.0,USD
 Thu Dec 16 18:52:38 EST 2021,transfer,abc,saving,abc,security,1000.0,USD
 Thu Dec 16 19:10:19 EST 2021,deposit,abc,cash,abc,saving,1000.0,USD
+Thu Dec 16 21:27:37 EST 2021,deposit,amp,cash,amp,saving,1000.0,USD
+Thu Dec 16 21:29:21 EST 2021,transfer,amp,saving,amp,security,1000.0,USD
+Thu Dec 16 21:29:21 EST 2021,Transfer,amp,saving,amp,security,1000.0,USD
+Thu Dec 16 21:32:15 EST 2021,loan,bank,,amp,saving,1200.0,USD

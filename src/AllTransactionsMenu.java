@@ -79,6 +79,7 @@ public class AllTransactionsMenu implements ActionListener {
         }
         if (logOutButton.equals(e.getSource())) {
             frame.dispose();
+            new Login(new LoginData());
         }
     }
 }

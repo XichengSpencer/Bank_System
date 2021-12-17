@@ -1,4 +1,5 @@
 import java.lang.reflect.Array;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -19,7 +20,16 @@ public class Main {
         //fileEditor.listWrite("/src/System Data/file/","file.txt", Arrays.asList(new String[]{"a"},new String[]{"b"})) ;
         //test for meta
         //fileEditor.writeMeta("/src/System Data/metadata.txt",new String[]{"0"});
-        //String date = new SimpleDateFormat("MM/dd/yyyy").format(new Date());
+        /*try {
+            Date date= new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy").parse("Wed Dec 16 22:32:14 EST 2021");
+            String s = new SimpleDateFormat("MM/dd/yyyy").format(date);
+            date = new SimpleDateFormat("MM/dd/yyyy").parse(s);
+            Date date2 = new Date("12/16/2021");
+            System.out.println(date.equals(date2));
+        }catch (ParseException exp) {
+            exp.printStackTrace();
+        }*/
+
         //test exist function
         //System.out.println(fileEditor.exist("/src/ab.txt"));
     }

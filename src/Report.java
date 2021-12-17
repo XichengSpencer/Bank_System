@@ -22,7 +22,7 @@ public class Report implements ActionListener {
     private String ratePath =  "/src/System Data/Exchange.txt";
     private String metaPath = "/src/System Data/metadata.txt";
     private String transactionPath = "/src/transaction.txt";
-    private SimpleDateFormat sdf =new SimpleDateFormat("MM/dd/yyyy");
+    private SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
 
     public Report(){
         message = new JLabel();
@@ -88,18 +88,165 @@ public class Report implements ActionListener {
             List<String[]> stocklist =fileEditor.fileRead(stockPath);
             list.addAll(stocklist);
 
-            list.addAll(readTransaction());
-
             list.addAll(readMeta(date));
+            list.addAll(readTransaction(date));
+
 
             fileEditor.listWrite("/src/System Data/Daily report/" + temp + "/", "report.txt", list);
         }
     }
 
-    private List<? extends String[]> readTransaction() {
+    private List<? extends String[]> readTransaction(String Date) {
         List<String[]> list =  fileEditor.fileRead("src/transaction.txt");
-        //TODO
-        return list;
+        List<String[]> result = new ArrayList<>();
+        int withdraw_amount = 0;
+        double withdraw_rmb = 0;
+        double withdraw_usd = 0;
+        double withdraw_gbp = 0;
+
+        int stock_amount = 0;
+        double stock_value = 0;
+        int deposit_num = 0;
+        double deposit_rmb = 0;
+        double deposit_usd = 0;
+        double deposit_gnp = 0;
+        int transfer_num = 0;
+        double transfer_rmb = 0;
+        double transfer_usd = 0;
+        double transfer_gnp = 0;
+        int loan_pay = 0;
+        int loan_receive = 0;
+        double loan_rmb = 0;
+        double loan_usd = 0;
+        double loan_gnp = 0;
+
+        for (String [] s : list){
+            try {
+                Date recordDate= new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy").parse(s[0]);
+                String temp =sdf.format(recordDate);
+                recordDate = sdf.parse(temp);
+                if(recordDate.equals(sdf.parse(Date))){
+                    String action = s[1];
+                    switch (action){
+                        case "deposit":
+                            deposit_num++;
+                            if(s[7].equals("RMB")) {
+
+                                deposit_rmb += Double.valueOf(s[6]);
+                            }else if(s[7].equals("USD")){
+
+                                deposit_usd += Double.valueOf(s[6]);
+                            }else{
+
+                                deposit_gnp += Double.valueOf(s[6]);
+                            }
+                            break;
+                        case "transfer":
+                            transfer_num++;
+                            if(s[7].equals("RMB")) {
+
+                                transfer_rmb += Double.valueOf(s[6]);
+                            }else if(s[7].equals("USD")){
+
+                                transfer_usd += Double.valueOf(s[6]);
+                            }else{
+
+                                transfer_gnp += Double.valueOf(s[6]);
+                            }
+                            break;
+                        case "loan":
+
+                            double value = Double.valueOf(s[6]);
+
+                            if (s[4].length()==0){
+                                loan_pay++;
+                            }else {
+                                loan_receive++;
+                                value=-value;
+                            }
+                            if(s[7].equals("RMB")) {
+
+                                loan_rmb += value;
+                            }else if(s[7].equals("USD")){
+
+                                loan_usd += value;
+                            }else{
+
+                                loan_gnp += value;
+                            }
+                            break;
+                        case "stock":
+                            stock_amount++;
+                            if(s[7].equals("USD")) {
+                                stock_value += Double.valueOf(s[6]);
+                            }
+                            break;
+                        case "withdraw":
+                            withdraw_amount++;
+                            if(s[7].equals("RMB")) {
+
+                                withdraw_rmb += Double.valueOf(s[6]);
+                            }else if(s[7].equals("USD")){
+
+                                withdraw_usd += Double.valueOf(s[6]);
+                            }else{
+
+                                withdraw_gbp += Double.valueOf(s[6]);
+                            }
+                            break;
+
+                    }
+
+                    result.add(new String[]{"Number of deposit: ", String.valueOf(deposit_num)});
+                    result.add(new String[]{"\n"});
+                    result.add(new String[]{"Total of RMB deposit: ", String.valueOf(deposit_rmb)});
+                    result.add(new String[]{"\n"});
+                    result.add(new String[]{"Total of USD deposit: ", String.valueOf(deposit_usd)});
+                    result.add(new String[]{"\n"});
+                    result.add(new String[]{"Total of GBP deposit: ", String.valueOf(deposit_gnp)});
+                    result.add(new String[]{"\n"});
+
+
+                    result.add(new String[]{"Number of transaction: ", String.valueOf(transfer_num)});
+                    result.add(new String[]{"\n"});
+                    result.add(new String[]{"Total of RMB transaction: ", String.valueOf(transfer_rmb)});
+                    result.add(new String[]{"\n"});
+                    result.add(new String[]{"Total of USD transaction: ", String.valueOf(transfer_usd)});
+                    result.add(new String[]{"\n"});
+                    result.add(new String[]{"Total of GBP transaction: ", String.valueOf(transfer_gnp)});
+                    result.add(new String[]{"\n"});
+
+                    result.add(new String[]{"Number of loan received: ", String.valueOf(loan_receive)});
+                    result.add(new String[]{"\n"});
+                    result.add(new String[]{"Number of loan payed: ", String.valueOf(loan_pay)});
+                    result.add(new String[]{"\n"});
+                    result.add(new String[]{"Total of RMB loan balance: ", String.valueOf(loan_rmb)});
+                    result.add(new String[]{"\n"});
+                    result.add(new String[]{"Total of USD loan balance: ", String.valueOf(loan_usd)});
+                    result.add(new String[]{"\n"});
+                    result.add(new String[]{"Total of GBP loan balance: ", String.valueOf(loan_gnp)});
+                    result.add(new String[]{"\n"});
+
+                    result.add(new String[]{"Number of withdraw: ", String.valueOf(transfer_num)});
+                    result.add(new String[]{"\n"});
+                    result.add(new String[]{"Total of RMB withdraw: ", String.valueOf(transfer_rmb)});
+                    result.add(new String[]{"\n"});
+                    result.add(new String[]{"Total of USD withdraw: ", String.valueOf(transfer_usd)});
+                    result.add(new String[]{"\n"});
+                    result.add(new String[]{"Total of GBP withdraw: ", String.valueOf(transfer_gnp)});
+                    result.add(new String[]{"\n"});
+
+                    result.add(new String[]{"Stock Transaction Performed: ", String.valueOf(stock_amount)});
+                    result.add(new String[]{"\n"});
+                    result.add(new String[]{"Stock Value in Transactions: ", String.valueOf(stock_value)});
+                    result.add(new String[]{"\n"});
+
+                }
+            }catch (ParseException exp) {
+                exp.printStackTrace();
+            }
+        }
+        return result;
     }
 
     private List<String []> readMeta(String Date) {
@@ -110,23 +257,12 @@ public class Report implements ActionListener {
         int stock_account = 0;
         double stock_value = 0;
         int new_user = 0;
-        int deposit_num = 0;
-        double deposit_rmb = 0;
-        double deposit_usd = 0;
-        double deposit_gnp = 0;
-        int transaction_num = 0;
-        double transaction_rmb = 0;
-        double transaction_usd = 0;
-        double transaction_gnp = 0;
-        int loan_num = 0;
-        double loan_rmb = 0;
-        double loan_usd = 0;
-        double loan_gnp = 0;
+
 
         List<String[]> list = fileEditor.fileRead("/src/metadata.txt");
         List<String[]> result = new ArrayList<>();
         if (list.size() > 0) {
-            for (int i = 1; i < list.size(); i++) {
+            for (int i = 0; i < list.size(); i++) {
                 try {
                     Date record = sdf.parse(list.get(i)[0]);
                     Date current = sdf.parse(Date);
@@ -141,44 +277,6 @@ public class Report implements ActionListener {
                             case "createChk":
                                 checking++;
                                 break;
-                            case "depositRMB":
-                                deposit_num++;
-                                deposit_rmb += Double.valueOf(list.get(i)[2]);
-                                break;
-                            case "depositUSD":
-                                deposit_num++;
-                                deposit_usd += Double.valueOf(list.get(i)[2]);
-                                break;
-                            case "depositGNP":
-                                deposit_num++;
-                                deposit_gnp += Double.valueOf(list.get(i)[2]);
-                                break;
-                            case "transactionUSD":
-                                transaction_num++;
-                                transaction_usd += Double.valueOf(list.get(i)[2]);
-                                break;
-                            case "transactionRMB":
-                                transaction_num++;
-                                transaction_rmb += Double.valueOf(list.get(i)[2]);
-                                break;
-                            case "transactionGNP":
-                                transaction_num++;
-                                transaction_gnp += Double.valueOf(list.get(i)[2]);
-                                break;
-                            case "loanRMB":
-                                loan_num++;
-                                loan_rmb += Double.valueOf(list.get(i)[2]);
-                                break;
-                            case "loanUSD":
-                                loan_num++;
-                                loan_rmb += Double.valueOf(list.get(i)[2]);
-                                break;
-                            case "loanGNP":
-                                loan_num++;
-                                loan_rmb += Double.valueOf(list.get(i)[2]);
-                                break;
-                            case"Stock":
-                                stock_value += Double.valueOf(list.get(i)[2]);
                         }
                     }
                 } catch (ParseException exp) {
@@ -193,35 +291,7 @@ public class Report implements ActionListener {
             result.add(new String[]{"\n"});
             result.add(new String[]{"Loan Account Created: ", String.valueOf(loan_account)});
             result.add(new String[]{"\n"});
-            result.add(new String[]{"Stock Account Created: ", String.valueOf(stock_account)});
-            result.add(new String[]{"\n"});
-            result.add(new String[]{"Stock transaction amount: ", String.valueOf(stock_account)});
-            result.add(new String[]{"\n"});
-            result.add(new String[]{"Total number of deposit: ", String.valueOf(deposit_num)});
-            result.add(new String[]{"\n"});
-            result.add(new String[]{"Total of RMB deposit: ", String.valueOf(deposit_rmb)});
-            result.add(new String[]{"\n"});
-            result.add(new String[]{"Total of USD deposit: ", String.valueOf(deposit_usd)});
-            result.add(new String[]{"\n"});
-            result.add(new String[]{"Total of GNP deposit: ", String.valueOf(deposit_gnp)});
-            result.add(new String[]{"\n"});
-            /*
-            result.add(new String[]{"Total number of transaction: ", String.valueOf(transaction_num)});
-            result.add(new String[]{"\n"});
-            result.add(new String[]{"Total of RMB transaction: ", String.valueOf(transaction_rmb)});
-            result.add(new String[]{"\n"});
-            result.add(new String[]{"Total of USD transaction: ", String.valueOf(transaction_usd)});
-            result.add(new String[]{"\n"});
-            result.add(new String[]{"Total of GNP transaction: ", String.valueOf(transaction_gnp)});
-            result.add(new String[]{"\n"});
-             */
-            result.add(new String[]{"Total number of loan: ", String.valueOf(loan_num)});
-            result.add(new String[]{"\n"});
-            result.add(new String[]{"Total of RMB loan: ", String.valueOf(loan_rmb)});
-            result.add(new String[]{"\n"});
-            result.add(new String[]{"Total of USD loan: ", String.valueOf(loan_usd)});
-            result.add(new String[]{"\n"});
-            result.add(new String[]{"Total of GNP loan: ", String.valueOf(loan_gnp)});
+
 
         }
         return result;
