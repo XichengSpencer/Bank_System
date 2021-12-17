@@ -166,7 +166,7 @@ public class DepositMenu implements ActionListener {
 
             }
             // log the transaction
-            TransactionData.getInstance().logTransaction("Deposit", customer.getName(), "cash", customer.getName(), toAccountType, Double.valueOf(depositInput.getText()), currencySelect.getSelectedItem().toString());
+            TransactionData.getInstance().logTransaction("deposit", customer.getName(), "cash", customer.getName(), toAccountType, Double.valueOf(depositInput.getText()), currencySelect.getSelectedItem().toString());
         }
 
         // go back to previous page
