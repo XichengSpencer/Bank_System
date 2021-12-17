@@ -146,6 +146,10 @@ public class TransferMenu implements ActionListener {
                 warningLabel.setText("Please input account number!");
                 return;
             }
+            if (accountNumberInput.getText().length() == 0){
+                warningLabel.setText("Please input account to transfer!");
+                return;
+            }
             CustomerData customerData = CustomerData.getInstance();
             Customer fromCustomer = customerData.selectCustomer(username);
             String fromAccountNumber = "";
