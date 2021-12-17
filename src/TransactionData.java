@@ -159,7 +159,7 @@ public class TransactionData {
 //        }
 //        fileEditor.writeFile("/src/transaction.txt", new String[]{transaction.getTransferTime().toString(), "Transfer", transaction.getFrom().getCustomer().getName(), transaction.getFrom().getAccountType(), transaction.getTo().getCustomer().getName(), transaction.getTo().getAccountType(), ""+transaction.getAmount(), transaction.getFromCurrency()});
 //        return msg;
-        logTransaction("Transfer", transaction);
+        logTransaction("transfer", transaction);
         return msg;
     }
 

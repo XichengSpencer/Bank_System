@@ -11,6 +11,7 @@ public class AdminPage implements ActionListener {
     private JButton changeExchangeButton;
     private JButton dailyReportButton;
     private JButton importButton;
+    private JButton allTransButton;
     private JButton logOutButton;
     private JButton stockButton;
     private JButton addStockButton;
@@ -30,6 +31,7 @@ public class AdminPage implements ActionListener {
         dailyReportButton = new JButton("Daily Report");
         stockButton = new JButton("Stock Simulate");
         addStockButton = new JButton("Add A New Stock");
+        allTransButton = new JButton("View All Transactions");
         logOutButton = new JButton("Log Out");
 
         infolabel = new JLabel("");
@@ -42,8 +44,9 @@ public class AdminPage implements ActionListener {
         stockButton.setBounds(20,190,200,25);
         dailyReportButton.setBounds(20,230,200,25);
         addStockButton.setBounds(20,270,200,25);
-        logOutButton.setBounds(20,310,200,25);
-        infolabel.setBounds(20,340,200,25);
+        allTransButton.setBounds(20,310,200,25);
+        logOutButton.setBounds(20,350,200,25);
+        infolabel.setBounds(20,380,200,25);
 
 
         changeInterestButton.addActionListener(this);
@@ -52,6 +55,7 @@ public class AdminPage implements ActionListener {
         dailyReportButton.addActionListener(this);
         stockButton.addActionListener(this);
         addStockButton.addActionListener(this);
+        allTransButton.addActionListener(this);
         logOutButton.addActionListener(this);
 
         frame = new JFrame("Admin Page");
@@ -62,6 +66,7 @@ public class AdminPage implements ActionListener {
         frame.add(importButton);
         frame.add(dailyReportButton);
         frame.add(stockButton);
+        frame.add(allTransButton);
         frame.add(logOutButton);
         frame.add(changeExchangeButton);
 
@@ -97,6 +102,10 @@ public class AdminPage implements ActionListener {
         }
         if(e.getSource() == addStockButton){
             new StockGenerate();
+        }
+        if (e.getSource() == allTransButton) {
+            frame.dispose();
+            new AllTransactionsMenu(frame);
         }
 
         if(e.getSource()==logOutButton) {
