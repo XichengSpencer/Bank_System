@@ -145,7 +145,6 @@ public class SecurityMenu implements ActionListener {
             Transfer transfer = new Transfer(savingAccount, securityAccount, amount, currencySelect.getSelectedItem().toString());
             try {
                 transfer.execute();
-                TransactionData.getInstance().logTransaction("Transfer", transfer);
             } catch (IOException ex) {
                 ex.printStackTrace();
             }

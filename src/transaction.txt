@@ -20,3 +20,4 @@ Thu Dec 16 21:27:37 EST 2021,deposit,amp,cash,amp,saving,1000.0,USD
 Thu Dec 16 21:29:21 EST 2021,transfer,amp,saving,amp,security,1000.0,USD
 Thu Dec 16 21:29:21 EST 2021,Transfer,amp,saving,amp,security,1000.0,USD
 Thu Dec 16 21:32:15 EST 2021,loan,bank,,amp,saving,1200.0,USD
+Thu Dec 16 22:55:04 EST 2021,transfer,abc,checking,abc,saving,10.0,RMB
