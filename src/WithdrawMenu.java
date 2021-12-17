@@ -173,6 +173,9 @@ public class WithdrawMenu implements ActionListener {
             }
 
             warningLabel.setText("Withdraw complete!");
+
+            TransactionData.getInstance().logTransaction("withdraw", customer.getName(), toAccountType,
+                    "","",amount, currency);
         }
     }
 }

@@ -262,6 +262,8 @@ public class StockMenu implements ActionListener {
             buyWarningLabel.setText("Purchase Complete!");
             securityBalanceLabel.setText(""+securityBalance);
             updateSellTable();
+            TransactionData.getInstance().logTransaction("stock", customer.getName(), "security",
+                    "bank", "", amountToPay, "USD");
         }
         if (sellButton.equals(e.getSource())){
             if (shareSell.getText().length() == 0){
@@ -290,6 +292,8 @@ public class StockMenu implements ActionListener {
             sellWarningLabel.setText("Sell Complete!");
             securityBalanceLabel.setText(""+securityBalance);
             updateSellTable();
+            TransactionData.getInstance().logTransaction("stock", "bank", "",
+                    customer.getId(), "security", amountToAdd, "USD");
         }
     }
 }

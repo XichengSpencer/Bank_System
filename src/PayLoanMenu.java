@@ -141,6 +141,7 @@ public class PayLoanMenu implements ActionListener {
 
             if (accountBalance < amount){
                 warningLabel.setText("Insufficient Balance!");
+                return;
             }
 
             LoanData.updateAccount(customer, "checking", currency, 0-amount);
@@ -148,6 +149,9 @@ public class PayLoanMenu implements ActionListener {
             LoanData.updateLoan(customer, "checking", 0-amount, currency);
 
             warningLabel.setText("Paid!");
+
+            TransactionData.getInstance().logTransaction("loan", customer.getName(), "checking",
+                    "bank", "", amount, currency);
         }
     }
 }

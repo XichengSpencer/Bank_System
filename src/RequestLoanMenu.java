@@ -141,6 +141,9 @@ public class RequestLoanMenu implements ActionListener {
             LoanData.updateLoan(customer, account, loan, currency);
 
             warningLabel.setText("Confirmed");
+
+            TransactionData.getInstance().logTransaction("loan", "bank",
+                    "", customer.getName(), account, loan, currency);
         }
     }
 }
