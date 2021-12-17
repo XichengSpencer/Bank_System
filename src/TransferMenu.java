@@ -2,14 +2,16 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 
 public class TransferMenu implements ActionListener {
 
 
-    private JComboBox<String> accountInput;
+    private JTextField accountNumberInput;
     private JTextField amountInput;
     //    private JTextField currencyInput;
     private JComboBox<String> currencyInput;
@@ -32,7 +34,7 @@ public class TransferMenu implements ActionListener {
         JLabel amount = new JLabel("Amount:");
         JLabel currency = new JLabel("Currency:");
         JLabel fromAccount = new JLabel("From Account:");
-        accountInput = new JComboBox<>();
+        accountNumberInput = new JTextField();
         amountInput = new JTextField();
         currencyInput = new JComboBox<>();
         fromAccountInput = new JComboBox<>();
@@ -48,7 +50,7 @@ public class TransferMenu implements ActionListener {
         warningLabel.setBounds(20, 200, 300, 25);
 //        warningLabel.setFont(new Font(null, Font.BOLD, 20));
         accountNumber.setBounds(20, 70, 170, 25);
-        accountInput.setBounds(20, 110, 170, 25);
+        accountNumberInput.setBounds(20, 110, 170, 25);
         amount.setBounds(210, 70, 70, 25);
         amountInput.setBounds(210, 110, 70, 25);
         currency.setBounds(300,70, 80, 25);
@@ -64,7 +66,7 @@ public class TransferMenu implements ActionListener {
         frame.add(userLabel);
         frame.add(message);
         frame.add(accountNumber);
-        frame.add(accountInput);
+        frame.add(accountNumberInput);
         frame.add(amount);
         frame.add(amountInput);
         frame.add(currency);
@@ -91,7 +93,6 @@ public class TransferMenu implements ActionListener {
          * Add the accounts into the Combobox
          */
         fromAccountInput.addItem("--Please Select--");
-        accountInput.addItem("--Please Select--");
         //get the customer
         CustomerData customerData = CustomerData.getInstance();
         Customer customer = customerData.selectCustomer(userName);
@@ -100,12 +101,7 @@ public class TransferMenu implements ActionListener {
 //        HashMap<String, Account> accountList =  accountData.getAccountList(customer);
         HashMap<String, Account> accountList = customer.getAccountList();
         for (Account account : accountList.values()) {
-            if (account.getAccountType().equals("saving") ||
-                    account.getAccountType().equals("checking") ||
-                    account.getAccountType().equals("security")) {
-                fromAccountInput.addItem(account.getAccountType());
-                accountInput.addItem(account.getAccountType());
-            }
+            fromAccountInput.addItem(account.getId());
         }
         frame.add(fromAccountInput);
 
@@ -130,20 +126,12 @@ public class TransferMenu implements ActionListener {
                 warningLabel.setText("Please select Account!");
                 return;
             }
-            if (accountInput.getSelectedItem().toString().equals("--Please Select--")){
-                warningLabel.setText("Please select Account!");
-                return;
-            }
             if (currencyInput.getSelectedItem().toString().equals("--Please Select--")){
                 warningLabel.setText("Please select currency!");
                 return;
             }
             if (amountInput.getText().length() == 0){
-                warningLabel.setText("Please input amount to transfer！");
-                return;
-            }
-            if(accountNumberInput.getText().length() == 0){
-                warningLabel.setText("Please input account number!");
+                warningLabel.setText("Please input amount to transfer");
                 return;
             }
             if (accountNumberInput.getText().length() == 0){
@@ -152,15 +140,15 @@ public class TransferMenu implements ActionListener {
             }
             CustomerData customerData = CustomerData.getInstance();
             Customer fromCustomer = customerData.selectCustomer(username);
-            String fromAccountNumber = "";
-            String toAccountNumber = "";
+            String fromAccountNumber = fromAccountInput.getSelectedItem().toString();
+            String toAccountNumber = accountNumberInput.getText();
 
-            String fromAccountType = fromAccountInput.getSelectedItem().toString();
-            String toAccountType = accountInput.getSelectedItem().toString();
+            String fromAccountType = "";
+            String toAccountType = "";
             HashMap<String, Account> accountList = fromCustomer.getAccountList();
             for (String type : accountList.keySet()) {
-                if (type.equals(fromAccountType)) { // find the account
-                    fromAccountNumber = accountList.get(type).getId();
+                if (accountList.get(type).getId().equals(fromAccountNumber)) { // find the account
+                    fromAccountType = type;
                     break;
                 }
             }
@@ -171,9 +159,9 @@ public class TransferMenu implements ActionListener {
             for (Customer customer1 : customers) {
                 HashMap<String, Account> accountList1 = customer1.getAccountList();
                 for (String type : accountList1.keySet()) {
-                    if (type.equals(toAccountType)) { // find the account
+                    if (accountList1.get(type).getId().equals(toAccountNumber)) { // find the account
                         toCustomer = customerData.selectCustomer(customer1.getName());
-                        toAccountNumber = accountList1.get(type).getId();
+                        toAccountType = type;
                         isFund = true;
                         break;
                     }
@@ -191,8 +179,7 @@ public class TransferMenu implements ActionListener {
 
             Transfer transfer = new Transfer(from, to, amount, fromCurrency);
             try {
-                String result = transfer.execute();
-                warningLabel.setText(result);
+                transfer.execute();
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
