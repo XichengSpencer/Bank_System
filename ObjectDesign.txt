@@ -1,41 +1,109 @@
 Documentation of the classes you implemented:
+
 Account:
 Basic class for accounts, having attributes of account type, account id, account holder, and total amount.
+
 SavingAccount:
 SubClass of Account, specify the account type as saving.
+
 CheckingAccount:
 SubClass of Account, specify the account type as checking.
+
 SecurityAccount:
 SubClass of Account, specify the account type as security.
+
 AccountData:
 Class to operate on files, getting the records from document and set them to each kind of accounts.
+
 AccountMenu:
 Page for opening new account. We used JButton and JLabel to build the screen.
+
 AccountSummaryMenu:
 Page for the Account Summary, build a table to show all the currencies in each account.
+
 AllTransactionsMenu:
 Page for manager to see all the transactions of all customers. Similar to TransactionMenu.
+
 Customer:
 SubClass of User, can store customer's info for the follow-up process.
+
 CustomerData:
 Class to operate on files, it can get the account list and update
+
 DepositMenu:
 Page for deposit operation, having a JTextField for amount input and a JComboBox for selecting the target account. Customer can also select a currency in Combobox.
+
+LoanData.java
+class containing helper function for read and write, it will also parse the data.
+
+LoanMenu.java
+The window containing link to request and pay loan window
+
+RequestLoanMenu.java
+The window for request a loan from the bank
+
 SecurityMenu:
 Page for opening a security, will check the amount in saving account is enough or not. When jump to this page, input less than 1000 will also cause a warning message.
+
+StockData.java
+class containing helper function for read and write, it will also parse the data.
+
+StockGenerate.java
+A frame for Admin to add new stocks to the current stock list.
+
+StockMenu.java
+The window which will display all current stocks and prices and also stock and shares that the user has. Users can buy and sell stocks here.
+
 Transaction:
 Abstract class for transfer process, should be extended by Transfer class. Methods can be overwritten to adapt to deposit, withdraw, loan.
+
 TransactionData:
 Class to operate on file, get the account info and then send back to the transfer class. Will also write logs to the transaction file for later use.
+
 TransactionMenu:
 Page for showing transactions of the customer. Using jTable to display all the transaction logs.
+
 Transfer:
 Implemented the Transaction class, implemented the execute method. Transfer between account in same customer won't charge fee, while between different customers will charge fee.
+
 TransferInterFace:
 Interface of transfer, having a execute method for different scenarios.
+
 TransferMenu:
 Page for doing transaction between accounts. Customers can select source account and currency in the comboboxes and input the amount and account number in the textfield.
+
 User:
 Basic class for the App users, having name, password, and userId
+
 Utility:
 Functional class, having a method of getting the rate between different currencies.
+
+AdminPage.java
+The function menu once the admin login.
+
+LoanData.java
+class containing helper function for read and write, it will also parse the data.
+
+LoanMenu.java
+The window containing link to request and pay loan window
+
+Login.form and Login.java
+An account registration page for users to either sign in or create a user account.
+
+LoginData.java
+An account information storage class that read from local and store user account information.
+
+Main.java
+an initializer for the entire system.
+
+Manager.java
+A class for manager  as a subclass of user.
+
+login.txt
+user account information record
+
+metadata.txt
+System record for all account registration activities.
+
+WithdrawMenu.java
+The window for user to withdraw money from their accounts.

@@ -92,7 +92,7 @@ public class DepositMenu implements ActionListener {
 //        HashMap<String, Account> accountList =  accountData.getAccountList(customer);
         HashMap<String, Account> accountList = customer.getAccountList();
         for (Account account : accountList.values()) {
-            if (account.getAccountType().equals("checking")||account.getAccountType().equals("saving")) {
+            if (account.getAccountType().equals("checking")||account.getAccountType().equals("saving")||account.getAccountType().equals("security")) {
                 accountSelect.addItem(account.getAccountType());
             }
         }

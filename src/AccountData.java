@@ -48,7 +48,7 @@ public class AccountData {
                 list.put("checking", cAccount);
             }
             File stockAccount = new File(accountPath + "/security.txt");
-            Account stAccount = new Account("stock", customer);
+            Account stAccount = new Account("security", customer);
             if (stockAccount.length() != 0) {
                 List<String[]> accountList = fileEditor.fileRead("/src/System Data/"+customer.getId()+"/security.txt");
                 for(String[] token :accountList){

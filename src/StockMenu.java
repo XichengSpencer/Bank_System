@@ -208,7 +208,8 @@ public class StockMenu implements ActionListener {
                 sellData[sellIndex][0] = entry.getKey();
                 sellData[sellIndex][1] = entry.getValue()[0];
                 sellData[sellIndex][2] = entry.getValue()[1];
-                sellData[sellIndex][3] = "" + (Integer.parseInt(entry.getValue()[0]) * stockData.get(entry.getKey()));
+                sellData[sellIndex][3] = String.format("%.2f",(Integer.parseInt(entry.getValue()[0]) *
+                        stockData.get(entry.getKey())));
                 sellIndex++;
             }
         } else {
@@ -257,6 +258,8 @@ public class StockMenu implements ActionListener {
             }
 
             securityBalance -= amountToPay;
+            String temp = String.format("%.2f", securityBalance);
+            securityBalance = Double.valueOf(temp);
 
             StockData.updateStock(customer, stockTobuy, shareAmount, stockData.get(stockTobuy));
             StockData.updateAccount(customer, securityBalance);
@@ -287,6 +290,8 @@ public class StockMenu implements ActionListener {
 
             double amountToAdd = shareAmount*stockData.get(stockToSell);
             securityBalance += amountToAdd;
+            String temp = String.format("%.2f", securityBalance);
+            securityBalance = Double.valueOf(temp);
 
             StockData.updateStock(customer, stockToSell, 0-shareAmount, -1);
             StockData.updateAccount(customer, securityBalance);

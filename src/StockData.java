@@ -97,7 +97,7 @@ public class StockData {
                 if (sharePrice>0){
                     double newAverage = Double.valueOf(token[2]);
                     newAverage = (newAverage*oldShare + share*sharePrice)/(newShare);
-                    token[2] = ""+newAverage;
+                    token[2] = String.format("%.5f", newAverage);
                 }
                 token[1] = ""+newShare;
             }
@@ -133,7 +133,7 @@ public class StockData {
         }
 
         for(String[] token :amountList) {
-            token[1] = "" + amount;
+            token[1] = String.format("%.2f", amount);
             fileEditor.writeFile("/src/System Data/" + customer.getId() + "/security.txt", token);
         }
     }

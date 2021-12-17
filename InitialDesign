@@ -1,0 +1,33 @@
+Customer Account:
+Checking account
+Saving account
+loan
+Three currencies: Dollar, RMB, …
+manager:	
+generate daily report
+change interest
+deposit interest
+
+Stock: (one button) self-define up or down and generate a random amount 
+Login page: save or generate local user folder and account data.
+
+General types: users:(customers, administrators)
+		account: saving, checking, security, loan
+		pages: series of page for user 
+
+
+Files:
+
+User
+	username, password, AccountNumber
+Account
+	AccountType, AccountNumber, Balance,
+Records
+	SourceAccout, TargetAccount, UserName, DateTime, Amount, 
+
+Ex: User1 transfer $100 from 0001 to 0002, at 12/02/2021 10 PM, current amount is: $2000
+
+SubClass: Transfer; Loan, Stock, Interest, AccountAction(create account, delete account)
+	
+Stock
+	StockName, PriceInDollar
