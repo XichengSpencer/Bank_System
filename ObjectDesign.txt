@@ -21,8 +21,20 @@ CustomerData:
 Class to operate on files, it can get the account list and update
 DepositMenu:
 Page for deposit operation, having a JTextField for amount input and a JComboBox for selecting the target account. Customer can also select a currency in Combobox.
+LoanData.java
+class containing helper function for read and write, it will also parse the data.
+LoanMenu.java
+The window containing link to request and pay loan window
+RequestLoanMenu.java
+The window for request a loan from the bank
 SecurityMenu:
 Page for opening a security, will check the amount in saving account is enough or not. When jump to this page, input less than 1000 will also cause a warning message.
+StockData.java
+class containing helper function for read and write, it will also parse the data.
+StockGenerate.java
+A frame for Admin to add new stocks to the current stock list.
+StockMenu.java
+The window which will display all current stocks and prices and also stock and shares that the user has. Users can buy and sell stocks here.
 Transaction:
 Abstract class for transfer process, should be extended by Transfer class. Methods can be overwritten to adapt to deposit, withdraw, loan.
 TransactionData:
@@ -39,3 +51,5 @@ User:
 Basic class for the App users, having name, password, and userId
 Utility:
 Functional class, having a method of getting the rate between different currencies.
+WithdrawMenu.java
+The window for user to withdraw money from their accounts.
