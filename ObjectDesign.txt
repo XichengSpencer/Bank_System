@@ -39,3 +39,5 @@ User:
 Basic class for the App users, having name, password, and userId
 Utility:
 Functional class, having a method of getting the rate between different currencies.
+AdminPage.java
+The function menu once the admin login.
