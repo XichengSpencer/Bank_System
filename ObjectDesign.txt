@@ -51,5 +51,31 @@ User:
 Basic class for the App users, having name, password, and userId
 Utility:
 Functional class, having a method of getting the rate between different currencies.
+AdminPage.java
+The function menu once the admin login.
+LoanData.java
+class containing helper function for read and write, it will also parse the data.
+
+LoanMenu.java
+The window containing link to request and pay loan window
+
+Login.form and Login.java
+An account registration page for users to either sign in or create a user account.
+
+LoginData.java
+An account information storage class that read from local and store user account information.
+
+Main.java
+an initializer for the entire system.
+
+Manager.java
+A class for manager  as a subclass of user.
+
+login.txt
+user account information record
+
+metadata.txt
+System record for all account registration activities.
+
 WithdrawMenu.java
 The window for user to withdraw money from their accounts.
